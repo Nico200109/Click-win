@@ -1,17 +1,17 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #f5f5f5;
+  background: #f2f2f2;
   color: #111;
 }
 
 header {
-  background: white;
-  padding: 15px 30px;
+  background: #fff;
+  padding: 16px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
 header h1 {
@@ -20,73 +20,61 @@ header h1 {
   color: #0a84ff;
 }
 
-nav a {
-  margin-left: 15px;
-  text-decoration: none;
-  color: #555;
-}
-
-nav a:hover {
-  color: #0a84ff;
-}
-
 main {
-  max-width: 1000px;
-  margin: 30px auto;
+  max-width: 900px;
+  margin: 40px auto;
   padding: 0 20px;
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+  gap: 24px;
 }
 
-.auction-card {
-  background: white;
-  border-radius: 15px;
-  padding: 15px;
-  text-align: center;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+.card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 16px;
   height: 420px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  text-align: center;
 }
 
-.auction-card img {
+.card img {
   width: 100%;
   height: 180px;
   border-radius: 12px;
   object-fit: cover;
-  margin-bottom: 10px;
 }
 
 h2 {
-  font-size: 20px;
-  margin-bottom: 5px;
+  font-size: 18px;
+  margin: 10px 0 4px;
 }
 
-.description {
-  font-size: 14px;
-  color: #555;
-  margin-bottom: 10px;
+.desc {
+  font-size: 13px;
+  color: #666;
 }
 
 .price {
-  font-size: 28px;
+  font-size: 34px;
   font-weight: bold;
   color: #0a84ff;
 }
 
 button {
   background: #0a84ff;
-  color: white;
+  color: #fff;
   border: none;
-  padding: 10px 20px;
+  padding: 12px;
   border-radius: 999px;
+  font-size: 15px;
   cursor: pointer;
-  font-size: 14px;
 }
 
 button:disabled {
@@ -94,15 +82,12 @@ button:disabled {
   cursor: not-allowed;
 }
 
-.wait {
-  font-size: 20px;
+.reserved {
+  font-size: 22px;
   font-weight: bold;
-  color: #555;
 }
 
 .icon {
-  font-size: 30px;
-  color: #0a84ff;
-  margin-top: 5px;
+  font-size: 34px;
+  margin-top: 8px;
 }
-
