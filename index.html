@@ -43,6 +43,13 @@ h1 {
     font-size: 22px;
     font-weight: bold;
     margin: 10px 0;
+    color: #1a73e8;
+}
+
+.viewers {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 5px;
 }
 
 button {
@@ -82,7 +89,8 @@ button {
         <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9" alt="Téléphone">
         <h2>Smartphone</h2>
         <p>Produit neuf, garanti.</p>
-        <div class="price" id="price1">100 €</div>
+        <div class="viewers" id="viewers1"></div>
+        <div class="price" id="price1"></div>
         <button id="blockBtn">Bloquer le prix</button>
         <button id="payBtn">Payer maintenant</button>
         <div class="timer" id="timer1"></div>
@@ -92,7 +100,8 @@ button {
         <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" alt="TV">
         <h2>TV 4K</h2>
         <p>Écran 65 pouces UHD.</p>
-        <div class="price" id="price2">120 €</div>
+        <div class="viewers" id="viewers2"></div>
+        <div class="price" id="price2"></div>
         <button id="blockBtn2">Bloquer le prix</button>
         <button id="payBtn2">Payer maintenant</button>
         <div class="timer" id="timer2"></div>
@@ -100,22 +109,41 @@ button {
 </div>
 
 <script>
-function setupAuction(priceEl, blockBtn, payBtn, timerEl, startPrice) {
-    let price = startPrice;
+const items = [
+  {name:"Smartphone", desc:"Produit neuf, garanti.", img:"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9", price:100},
+  {name:"TV 4K", desc:"Écran 65 pouces UHD.", img:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e", price:120},
+  {name:"Console de jeux", desc:"Nouvelle génération.", img:"https://images.unsplash.com/photo-1606813901275-cf9b0e39db2b", price:150},
+  {name:"Week-end Disneyland", desc:"2 jours pour 2 personnes.", img:"https://images.unsplash.com/photo-1582719478141-3b8b1b1a1f3f", price:200}
+];
+
+function setupAuction(objId, priceId, blockId, payId, timerId, itemIndex) {
+    const objEl = document.getElementById(objId);
+    const priceEl = document.getElementById(priceId);
+    const blockBtn = document.getElementById(blockId);
+    const payBtn = document.getElementById(payId);
+    const timerEl = document.getElementById(timerId);
+    const viewersEl = objEl.querySelector(".viewers");
+
+    let item = items[itemIndex % items.length];
+    let price = item.price;
     let blocked = false;
-    let paymentTimer;
+    let priceInterval, paymentTimer;
     
+    // initialisation
+    priceEl.innerText = price + " €";
+    viewersEl.innerText = Math.floor(Math.random()*30+10) + " personnes regardent cet objet";
+
     function startPriceDrop() {
-        return setInterval(() => {
+        priceInterval = setInterval(() => {
             if (!blocked) {
                 price--;
                 priceEl.innerText = price + " €";
-                if (price <= 10) price = 100; // reset minimal
+                if (price <= 10) price = 10;
             }
         }, 300);
     }
 
-    let priceInterval = startPriceDrop();
+    startPriceDrop();
 
     blockBtn.addEventListener("click", () => {
         if (blocked) return;
@@ -124,6 +152,7 @@ function setupAuction(priceEl, blockBtn, payBtn, timerEl, startPrice) {
 
         blockBtn.style.display = "none";
         payBtn.style.display = "inline-block";
+
         let timeLeft = 10;
         timerEl.innerText = "Temps pour payer : " + timeLeft + "s";
 
@@ -136,7 +165,7 @@ function setupAuction(priceEl, blockBtn, payBtn, timerEl, startPrice) {
                 payBtn.style.display = "none";
                 blockBtn.style.display = "inline-block";
                 timerEl.innerText = "";
-                priceInterval = startPriceDrop(); // reprise du prix
+                startPriceDrop(); // reprend là où le prix s'était arrêté
             }
         }, 1000);
     });
@@ -145,24 +174,27 @@ function setupAuction(priceEl, blockBtn, payBtn, timerEl, startPrice) {
         alert("Paiement validé 🎉");
         clearInterval(paymentTimer);
     });
+
+    // Rotation automatique toutes les 20s
+    setInterval(() => {
+        let nextItem = Math.floor(Math.random()*items.length);
+        item = items[nextItem];
+        price = item.price;
+        priceEl.innerText = price + " €";
+        objEl.querySelector("h2").innerText = item.name;
+        objEl.querySelector("p").innerText = item.desc;
+        objEl.querySelector("img").src = item.img;
+        viewersEl.innerText = Math.floor(Math.random()*30+10) + " personnes regardent cet objet";
+        blocked = false;
+        payBtn.style.display = "none";
+        blockBtn.style.display = "inline-block";
+        timerEl.innerText = "";
+    }, 20000); // toutes les 20s
 }
 
-// initialisation des deux objets
-setupAuction(
-    document.getElementById("price1"),
-    document.getElementById("blockBtn"),
-    document.getElementById("payBtn"),
-    document.getElementById("timer1"),
-    100
-);
-
-setupAuction(
-    document.getElementById("price2"),
-    document.getElementById("blockBtn2"),
-    document.getElementById("payBtn2"),
-    document.getElementById("timer2"),
-    120
-);
+// init
+setupAuction("obj1","price1","blockBtn","payBtn","timer1",0);
+setupAuction("obj2","price2","blockBtn2","payBtn2","timer2",1);
 </script>
 
 </body>
