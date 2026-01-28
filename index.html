@@ -4,100 +4,149 @@
 <meta charset="UTF-8">
 <title>Click&Win</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="style.css">
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 30px;
+}
+
+.object {
+    background: white;
+    max-width: 320px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.object img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.price {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+button {
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#blockBtn {
+    background: #000;
+    color: white;
+}
+
+#payBtn {
+    background: #28a745;
+    color: white;
+    display: none;
+    margin-top: 10px;
+}
+
+.timer {
+    margin-top: 10px;
+    font-weight: bold;
+    color: red;
+}
+</style>
 </head>
 
 <body>
 
 <h1>Click&Win</h1>
-<p class="subtitle">Le prix baisse. Le plus rapide gagne.</p>
 
-<div class="container">
-  <div class="card" id="slot1"></div>
-  <div class="card" id="slot2"></div>
+<div class="object">
+    <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9" alt="Téléphone">
+    <h2>Smartphone dernière génération</h2>
+    <p>Produit neuf, garanti, livraison rapide.</p>
+
+    <div class="price" id="price">100 €</div>
+
+    <button id="blockBtn">Bloquer le prix</button>
+    <button id="payBtn">Payer maintenant</button>
+
+    <div class="timer" id="timer"></div>
 </div>
 
 <script>
-const items = [
-  {name:"iPhone 14", desc:"Smartphone dernière génération"},
-  {name:"Week-end Disneyland", desc:"2 jours pour 2 personnes"},
-  {name:"TV 4K", desc:"Télévision 65 pouces"},
-  {name:"Console de jeux", desc:"Console nouvelle génération"}
-];
+let price = 100;
+let priceInterval;
+let paymentTimer;
+let timeLeft = 10;
+let blocked = false;
 
-function start(card, index) {
-  let price = 100;
-  let viewers = Math.floor(Math.random() * 30) + 20;
-  let item = items[index % items.length];
-
-  card.innerHTML = `
-    <h2>${item.name}</h2>
-    <p>${item.desc}</p>
-    <div class="viewers">${viewers} personnes regardent cet objet</div>
-    <div class="price">${price} €</div>
-    <button>Bloquer le prix</button>
-  `;
-
-  let priceEl = card.querySelector(".price");
-  let btn = card.querySelector("button");
-
-  let timer = setInterval(() => {
-    price--;
-    priceEl.textContent = price + " €";
-
-    if (price <= 10) {
-      clearInterval(timer);
-      next(card, index + 1);
-    }
-  }, 300);
-
-  btn.onclick = () => {
-    clearInterval(timer);
-    lockPrice(card, price, index);
-  };
+// baisse du prix
+function startPriceDrop() {
+    priceInterval = setInterval(() => {
+        if (!blocked) {
+            price -= 1;
+            if (price <= 10) {
+                price = 100;
+            }
+            document.getElementById("price").innerText = price + " €";
+        }
+    }, 300);
 }
 
-function lockPrice(card, price, index) {
-  let payTime = 10;
+// bloquer le prix
+document.getElementById("blockBtn").addEventListener("click", () => {
+    if (blocked) return;
 
-  card.innerHTML = `
-    <h2>Prix bloqué ✅</h2>
-    <div class="locked-price">${price} €</div>
-    <p>Temps restant pour payer</p>
-    <div class="count">${payTime}</div>
-  `;
+    blocked = true;
+    clearInterval(priceInterval);
 
-  let payTimer = setInterval(() => {
-    payTime--;
-    card.querySelector(".count").textContent = payTime;
+    document.getElementById("blockBtn").style.display = "none";
+    document.getElementById("payBtn").style.display = "inline-block";
 
-    if (payTime === 0) {
-      clearInterval(payTimer);
-      next(card, index + 1);
-    }
-  }, 1000);
+    timeLeft = 10;
+    document.getElementById("timer").innerText = "Temps pour payer : 10s";
+
+    paymentTimer = setInterval(() => {
+        timeLeft--;
+        document.getElementById("timer").innerText = "Temps pour payer : " + timeLeft + "s";
+
+        if (timeLeft <= 0) {
+            resetAuction();
+        }
+    }, 1000);
+});
+
+// paiement simulé
+document.getElementById("payBtn").addEventListener("click", () => {
+    alert("Paiement validé 🎉");
+    clearInterval(paymentTimer);
+});
+
+// reset
+function resetAuction() {
+    clearInterval(paymentTimer);
+    blocked = false;
+    price = 100;
+
+    document.getElementById("price").innerText = price + " €";
+    document.getElementById("timer").innerText = "";
+    document.getElementById("blockBtn").style.display = "inline-block";
+    document.getElementById("payBtn").style.display = "none";
+
+    startPriceDrop();
 }
 
-function next(card, nextIndex) {
-  let t = 5;
-  card.innerHTML = `
-    <p>Prochain objet dans</p>
-    <div class="count">${t}</div>
-  `;
-
-  let wait = setInterval(() => {
-    t--;
-    card.querySelector(".count").textContent = t;
-
-    if (t === 0) {
-      clearInterval(wait);
-      start(card, nextIndex);
-    }
-  }, 1000);
-}
-
-start(document.getElementById("slot1"), 0);
-start(document.getElementById("slot2"), 1);
+startPriceDrop();
 </script>
 
 </body>
