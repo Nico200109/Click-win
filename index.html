@@ -6,101 +6,98 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<header>
-  <h1>Click&Win</h1>
-</header>
+<h1>Click&Win</h1>
+<p class="subtitle">Le prix baisse. Le plus rapide gagne.</p>
 
-<main class="grid">
-  <div id="slot1" class="card"></div>
-  <div id="slot2" class="card"></div>
-</main>
+<div class="container">
+  <div class="card" id="slot1"></div>
+  <div class="card" id="slot2"></div>
+</div>
 
 <script>
 const items = [
-  {name:"iPhone 14", desc:"Smartphone dernière génération", img:"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9"},
-  {name:"TV 4K OLED", desc:"Télévision 65 pouces", img:"https://images.unsplash.com/photo-1593359677879-a4bb92f829d1"},
-  {name:"Console de jeux", desc:"Console nouvelle génération", img:"https://images.unsplash.com/photo-1606813907291-d86efa6a0f93"},
-  {name:"Week-end Disneyland", desc:"2 jours pour 2 personnes", img:"https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f"}
+  {name:"iPhone 14", desc:"Smartphone dernière génération"},
+  {name:"Week-end Disneyland", desc:"2 jours pour 2 personnes"},
+  {name:"TV 4K", desc:"Télévision 65 pouces"},
+  {name:"Console de jeux", desc:"Console nouvelle génération"}
 ];
 
-function startAuction(container, index) {
+function start(card, index) {
   let price = 100;
-  const item = items[index % items.length];
+  let viewers = Math.floor(Math.random() * 30) + 20;
+  let item = items[index % items.length];
 
-  container.innerHTML = `
-    <img src="${item.img}">
+  card.innerHTML = `
     <h2>${item.name}</h2>
-    <div class="desc">${item.desc}</div>
-    <div class="price">${price.toFixed(2)} €</div>
+    <p>${item.desc}</p>
+    <div class="viewers">${viewers} personnes regardent cet objet</div>
+    <div class="price">${price} €</div>
     <button>Bloquer le prix</button>
   `;
 
-  const priceEl = container.querySelector(".price");
-  const btn = container.querySelector("button");
+  let priceEl = card.querySelector(".price");
+  let btn = card.querySelector("button");
 
-  const interval = setInterval(() => {
-    price -= 0.5;
-    priceEl.textContent = price.toFixed(2) + " €";
+  let timer = setInterval(() => {
+    price--;
+    priceEl.textContent = price + " €";
+
     if (price <= 10) {
-      clearInterval(interval);
-      nextItem(container, index + 1);
+      clearInterval(timer);
+      next(card, index + 1);
     }
   }, 300);
 
   btn.onclick = () => {
-    clearInterval(interval);
-    reserve(container, index + 1);
+    clearInterval(timer);
+    lockPrice(card, price, index);
   };
 }
 
-function reserve(container, nextIndex) {
-  let t = 10;
-  container.innerHTML = `
-    <div class="reserved">Réservé</div>
-    <div>${t}s pour payer</div>
-    <div class="icon">🔒</div>
+function lockPrice(card, price, index) {
+  let payTime = 10;
+
+  card.innerHTML = `
+    <h2>Prix bloqué ✅</h2>
+    <div class="locked-price">${price} €</div>
+    <p>Temps restant pour payer</p>
+    <div class="count">${payTime}</div>
   `;
 
-  const countdown = setInterval(() => {
-    t--;
-    container.innerHTML = `
-      <div class="reserved">Réservé</div>
-      <div>${t}s pour payer</div>
-      <div class="icon">🔒</div>
-    `;
-    if (t <= 0) {
-      clearInterval(countdown);
-      nextItem(container, nextIndex);
+  let payTimer = setInterval(() => {
+    payTime--;
+    card.querySelector(".count").textContent = payTime;
+
+    if (payTime === 0) {
+      clearInterval(payTimer);
+      next(card, index + 1);
     }
   }, 1000);
 }
 
-function nextItem(container, nextIndex) {
+function next(card, nextIndex) {
   let t = 5;
-  container.innerHTML = `
-    <div class="reserved">Prochain objet</div>
-    <div>${t}s</div>
-    <div class="icon">⏳</div>
+  card.innerHTML = `
+    <p>Prochain objet dans</p>
+    <div class="count">${t}</div>
   `;
 
-  const wait = setInterval(() => {
+  let wait = setInterval(() => {
     t--;
-    container.innerHTML = `
-      <div class="reserved">Prochain objet</div>
-      <div>${t}s</div>
-      <div class="icon">⏳</div>
-    `;
-    if (t <= 0) {
+    card.querySelector(".count").textContent = t;
+
+    if (t === 0) {
       clearInterval(wait);
-      startAuction(container, nextIndex);
+      start(card, nextIndex);
     }
   }, 1000);
 }
 
-startAuction(document.getElementById("slot1"), 0);
-startAuction(document.getElementById("slot2"), 1);
+start(document.getElementById("slot1"), 0);
+start(document.getElementById("slot2"), 1);
 </script>
 
 </body>
