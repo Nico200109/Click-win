@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Click&Win – Enchères</title>
+<title>Click&Win</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -10,35 +10,29 @@
 
 <header>
   <h1>Click&Win</h1>
-  <nav>
-    <a href="index.html">Enchères</a>
-    <a href="how-it-works.html">Comment ça marche</a>
-    <a href="objects.html">Objets</a>
-  </nav>
 </header>
 
 <main class="grid">
-  <div id="slot1" class="auction-card"></div>
-  <div id="slot2" class="auction-card"></div>
+  <div id="slot1" class="card"></div>
+  <div id="slot2" class="card"></div>
 </main>
 
 <script>
 const items = [
-  {name:"iPhone 14", img:"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9", desc:"Smartphone dernière génération"},
-  {name:"TV 4K OLED", img:"https://images.unsplash.com/photo-1593359677879-a4bb92f829d1", desc:"Télévision 65 pouces Ultra HD"},
-  {name:"Console de jeux", img:"https://images.unsplash.com/photo-1606813907291-d86efa6a0f93", desc:"Console dernière génération"},
-  {name:"Week-end Disneyland", img:"https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f", desc:"Deux jours à Disneyland Paris"}
+  {name:"iPhone 14", desc:"Smartphone dernière génération", img:"https://images.unsplash.com/photo-1511707171634-5f897ff02aa9"},
+  {name:"TV 4K OLED", desc:"Télévision 65 pouces", img:"https://images.unsplash.com/photo-1593359677879-a4bb92f829d1"},
+  {name:"Console de jeux", desc:"Console nouvelle génération", img:"https://images.unsplash.com/photo-1606813907291-d86efa6a0f93"},
+  {name:"Week-end Disneyland", desc:"2 jours pour 2 personnes", img:"https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f"}
 ];
 
-function startAuction(container, index){
+function startAuction(container, index) {
   let price = 100;
-  let locked = false;
   const item = items[index % items.length];
 
   container.innerHTML = `
-    <img src="${item.img}" alt="${item.name}">
+    <img src="${item.img}">
     <h2>${item.name}</h2>
-    <div class="description">${item.desc}</div>
+    <div class="desc">${item.desc}</div>
     <div class="price">${price.toFixed(2)} €</div>
     <button>Bloquer le prix</button>
   `;
@@ -46,51 +40,67 @@ function startAuction(container, index){
   const priceEl = container.querySelector(".price");
   const btn = container.querySelector("button");
 
-  const interval = setInterval(()=>{
-    if(!locked){
-      price -= 0.5;
-      priceEl.textContent = price.toFixed(2) + " €";
-      if(price <= 10){
-        clearInterval(interval);
-        waitNext(container, index+1);
-      }
+  const interval = setInterval(() => {
+    price -= 0.5;
+    priceEl.textContent = price.toFixed(2) + " €";
+    if (price <= 10) {
+      clearInterval(interval);
+      nextItem(container, index + 1);
     }
-  },300);
+  }, 300);
 
   btn.onclick = () => {
-    locked = true;
-    btn.disabled = true;
-    btn.textContent = "Prix bloqué - 10s pour payer";
-    
-    // afficher compte à rebours quand prix bloqué
-    let t = 10;
-    const countdown = setInterval(()=>{
-      priceEl.textContent = price.toFixed(2) + " € (" + t + "s)";
-      t--;
-      if(t<0){
-        clearInterval(countdown);
-        btn.disabled = false;
-        btn.textContent = "Bloquer le prix";
-      }
-    },1000);
+    clearInterval(interval);
+    reserve(container, index + 1);
   };
 }
 
-function waitNext(container, nextIndex){
-  let t = 5;
-  container.innerHTML = `<div class="wait">Prochain objet dans ${t}s</div><div class="icon">⏳</div>`;
-  const w = setInterval(()=>{
+function reserve(container, nextIndex) {
+  let t = 10;
+  container.innerHTML = `
+    <div class="reserved">Réservé</div>
+    <div>${t}s pour payer</div>
+    <div class="icon">🔒</div>
+  `;
+
+  const countdown = setInterval(() => {
     t--;
-    container.innerHTML = `<div class="wait">Prochain objet dans ${t}s</div><div class="icon">⏳</div>`;
-    if(t <= 0){
-      clearInterval(w);
-      startAuction(container, nextIndex);
+    container.innerHTML = `
+      <div class="reserved">Réservé</div>
+      <div>${t}s pour payer</div>
+      <div class="icon">🔒</div>
+    `;
+    if (t <= 0) {
+      clearInterval(countdown);
+      nextItem(container, nextIndex);
     }
-  },1000);
+  }, 1000);
 }
 
-startAuction(document.getElementById("slot1"),0);
-startAuction(document.getElementById("slot2"),1);
+function nextItem(container, nextIndex) {
+  let t = 5;
+  container.innerHTML = `
+    <div class="reserved">Prochain objet</div>
+    <div>${t}s</div>
+    <div class="icon">⏳</div>
+  `;
+
+  const wait = setInterval(() => {
+    t--;
+    container.innerHTML = `
+      <div class="reserved">Prochain objet</div>
+      <div>${t}s</div>
+      <div class="icon">⏳</div>
+    `;
+    if (t <= 0) {
+      clearInterval(wait);
+      startAuction(container, nextIndex);
+    }
+  }, 1000);
+}
+
+startAuction(document.getElementById("slot1"), 0);
+startAuction(document.getElementById("slot2"), 1);
 </script>
 
 </body>
