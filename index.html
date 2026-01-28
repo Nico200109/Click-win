@@ -15,51 +15,58 @@ body {
 }
 
 h1 {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
 .object {
     background: white;
-    max-width: 320px;
-    margin: auto;
-    padding: 20px;
+    width: 200px;
+    padding: 15px;
     border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    font-size: 14px;
 }
 
 .object img {
     width: 100%;
-    border-radius: 10px;
+    border-radius: 8px;
 }
 
 .price {
-    font-size: 32px;
+    font-size: 22px;
     font-weight: bold;
-    margin: 15px 0;
+    margin: 10px 0;
 }
 
 button {
-    padding: 12px 20px;
-    font-size: 16px;
+    padding: 8px;
+    font-size: 14px;
     border: none;
-    border-radius: 8px;
+    border-radius: 6px;
     cursor: pointer;
 }
 
-#blockBtn {
+#blockBtn, #blockBtn2 {
     background: #000;
     color: white;
 }
 
-#payBtn {
+#payBtn, #payBtn2 {
     background: #28a745;
     color: white;
     display: none;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 .timer {
-    margin-top: 10px;
+    margin-top: 5px;
     font-weight: bold;
     color: red;
 }
@@ -70,83 +77,92 @@ button {
 
 <h1>Click&Win</h1>
 
-<div class="object">
-    <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9" alt="Téléphone">
-    <h2>Smartphone dernière génération</h2>
-    <p>Produit neuf, garanti, livraison rapide.</p>
+<div class="container">
+    <div class="object" id="obj1">
+        <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9" alt="Téléphone">
+        <h2>Smartphone</h2>
+        <p>Produit neuf, garanti.</p>
+        <div class="price" id="price1">100 €</div>
+        <button id="blockBtn">Bloquer le prix</button>
+        <button id="payBtn">Payer maintenant</button>
+        <div class="timer" id="timer1"></div>
+    </div>
 
-    <div class="price" id="price">100 €</div>
-
-    <button id="blockBtn">Bloquer le prix</button>
-    <button id="payBtn">Payer maintenant</button>
-
-    <div class="timer" id="timer"></div>
+    <div class="object" id="obj2">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e" alt="TV">
+        <h2>TV 4K</h2>
+        <p>Écran 65 pouces UHD.</p>
+        <div class="price" id="price2">120 €</div>
+        <button id="blockBtn2">Bloquer le prix</button>
+        <button id="payBtn2">Payer maintenant</button>
+        <div class="timer" id="timer2"></div>
+    </div>
 </div>
 
 <script>
-let price = 100;
-let priceInterval;
-let paymentTimer;
-let timeLeft = 10;
-let blocked = false;
-
-// baisse du prix
-function startPriceDrop() {
-    priceInterval = setInterval(() => {
-        if (!blocked) {
-            price -= 1;
-            if (price <= 10) {
-                price = 100;
+function setupAuction(priceEl, blockBtn, payBtn, timerEl, startPrice) {
+    let price = startPrice;
+    let blocked = false;
+    let paymentTimer;
+    
+    function startPriceDrop() {
+        return setInterval(() => {
+            if (!blocked) {
+                price--;
+                priceEl.innerText = price + " €";
+                if (price <= 10) price = 100; // reset minimal
             }
-            document.getElementById("price").innerText = price + " €";
-        }
-    }, 300);
+        }, 300);
+    }
+
+    let priceInterval = startPriceDrop();
+
+    blockBtn.addEventListener("click", () => {
+        if (blocked) return;
+        blocked = true;
+        clearInterval(priceInterval);
+
+        blockBtn.style.display = "none";
+        payBtn.style.display = "inline-block";
+        let timeLeft = 10;
+        timerEl.innerText = "Temps pour payer : " + timeLeft + "s";
+
+        paymentTimer = setInterval(() => {
+            timeLeft--;
+            timerEl.innerText = "Temps pour payer : " + timeLeft + "s";
+            if (timeLeft <= 0) {
+                clearInterval(paymentTimer);
+                blocked = false;
+                payBtn.style.display = "none";
+                blockBtn.style.display = "inline-block";
+                timerEl.innerText = "";
+                priceInterval = startPriceDrop(); // reprise du prix
+            }
+        }, 1000);
+    });
+
+    payBtn.addEventListener("click", () => {
+        alert("Paiement validé 🎉");
+        clearInterval(paymentTimer);
+    });
 }
 
-// bloquer le prix
-document.getElementById("blockBtn").addEventListener("click", () => {
-    if (blocked) return;
+// initialisation des deux objets
+setupAuction(
+    document.getElementById("price1"),
+    document.getElementById("blockBtn"),
+    document.getElementById("payBtn"),
+    document.getElementById("timer1"),
+    100
+);
 
-    blocked = true;
-    clearInterval(priceInterval);
-
-    document.getElementById("blockBtn").style.display = "none";
-    document.getElementById("payBtn").style.display = "inline-block";
-
-    timeLeft = 10;
-    document.getElementById("timer").innerText = "Temps pour payer : 10s";
-
-    paymentTimer = setInterval(() => {
-        timeLeft--;
-        document.getElementById("timer").innerText = "Temps pour payer : " + timeLeft + "s";
-
-        if (timeLeft <= 0) {
-            resetAuction();
-        }
-    }, 1000);
-});
-
-// paiement simulé
-document.getElementById("payBtn").addEventListener("click", () => {
-    alert("Paiement validé 🎉");
-    clearInterval(paymentTimer);
-});
-
-// reset
-function resetAuction() {
-    clearInterval(paymentTimer);
-    blocked = false;
-    price = 100;
-
-    document.getElementById("price").innerText = price + " €";
-    document.getElementById("timer").innerText = "";
-    document.getElementById("blockBtn").style.display = "inline-block";
-    document.getElementById("payBtn").style.display = "none";
-
-    startPriceDrop();
-}
-
-startPriceDrop();
+setupAuction(
+    document.getElementById("price2"),
+    document.getElementById("blockBtn2"),
+    document.getElementById("payBtn2"),
+    document.getElementById("timer2"),
+    120
+);
 </script>
 
 </body>
