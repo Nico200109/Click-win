@@ -1,33 +1,99 @@
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Comment ça marche – Click&Win</title>
+<title>Comment ça marche - Click&Win</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="style.css">
+<style>
+body{
+ font-family:Arial, sans-serif;
+ background:#f5f6fa;
+ margin:0;
+ text-align:center;
+}
+header{
+ background:#111;
+ color:#fff;
+ padding:15px;
+ font-size:26px;
+}
+section{
+ max-width:800px;
+ margin:40px auto;
+ background:#fff;
+ padding:30px;
+ border-radius:12px;
+ box-shadow:0 6px 20px rgba(0,0,0,.1);
+ text-align:left;
+}
+h2{
+ color:#111;
+}
+.step{
+ margin-bottom:20px;
+}
+.step span{
+ font-weight:bold;
+ color:#3498db;
+}
+nav{
+ margin-top:15px;
+}
+nav a{
+ margin:0 10px;
+ text-decoration:none;
+ color:#3498db;
+ font-weight:bold;
+}
+</style>
 </head>
+
 <body>
 
-<header>
-  <h1>Click&Win</h1>
-  <nav>
-    <a href="index.html">Enchères</a>
-    <a href="how-it-works.html">Comment ça marche</a>
-    <a href="objects.html">Objets</a>
-  </nav>
-</header>
+<header>Click&Win</header>
 
-<main>
-  <div class="box">
-    <h2>Comment ça marche</h2>
-    <p>Le prix baisse automatiquement en temps réel.</p>
-    <p>Le premier utilisateur qui clique bloque le prix.</p>
-    <p>Un temps limité est accordé pour finaliser le paiement.</p>
-    <p>Sans paiement, l’objet repart en rotation.</p>
-    <p>Chaque objet a son propre décompte et apparait par deux sur la page.</p>
-  </div>
-</main>
+<nav>
+ <a href="index.html">Enchères</a>
+ <a href="how.html">Comment ça marche</a>
+ <a href="winners.html">Gagnants</a>
+</nav>
+
+<section>
+ <h2>Comment ça marche ?</h2>
+
+ <div class="step">
+  <span>1.</span> Le prix de chaque objet baisse automatiquement, comme un compte à rebours.
+ </div>
+
+ <div class="step">
+  <span>2.</span> À tout moment, le premier utilisateur à cliquer sur 
+  <strong>“Bloquer le prix”</strong> bloque le montant affiché.
+ </div>
+
+ <div class="step">
+  <span>3.</span> L’utilisateur dispose alors de <strong>10 secondes</strong> pour payer.
+ </div>
+
+ <div class="step">
+  <span>4.</span> Si le paiement est effectué, l’objet est remporté au prix bloqué.
+ </div>
+
+ <div class="step">
+  <span>5.</span> Si le paiement n’est pas effectué à temps, l’enchère reprend à partir du prix bloqué.
+ </div>
+
+ <div class="step">
+  <span>6.</span> Lorsque le prix atteint <strong>10 €</strong> sans être bloqué, l’objet disparaît.
+ </div>
+
+ <div class="step">
+  <span>7.</span> Un compte à rebours de <strong>5 secondes</strong> s’affiche, puis un nouvel objet apparaît.
+ </div>
+
+ <p><strong>Important :</strong> Chaque objet fonctionne indépendamment des autres.</p>
+</section>
 
 </body>
 </html>
-
