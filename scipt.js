@@ -1,83 +1,72 @@
-// Récupération de toutes les cartes
 const cards = document.querySelectorAll('.item-card');
 
-// Création d'un état pour chaque carte
-const state = Array.from(cards).map(card => ({
-  card: card,
-  priceEl: card.querySelector('.price-value'),
-  lockBtn: card.querySelector('.lock-btn'),
-  payBtn: card.querySelector('.pay-btn'),
-  price: parseFloat(card.querySelector('.price-value').textContent),
-  locked: false,
-  interval: null
-}));
+cards.forEach(card => {
+  const priceEl = card.querySelector('.price-value');
+  const lockBtn = card.querySelector('.lock-btn');
+  const payBtn = card.querySelector('.pay-btn');
 
-// Fonction pour démarrer l'enchère d'une carte
-function startCard(cardState) {
-  const { card, priceEl, lockBtn, payBtn } = cardState;
+  let initialPrice = parseFloat(priceEl.textContent); // prix de départ
+  let price = initialPrice;
+  let locked = false;
+  let interval = null;
 
-  // Afficher la carte
-  card.style.display = "block";
+  // Fonction pour faire baisser le prix
+  function startDrop() {
+    interval = setInterval(() => {
+      if (!locked && price > 10) {
+        price = Math.max(10, price - 0.3);
+        priceEl.textContent = price.toFixed(2);
+      } else if (price <= 10) {
+        clearInterval(interval);
+        card.style.opacity = 0.5; // effet transition
+        setTimeout(() => {
+          price = initialPrice;
+          priceEl.textContent = price.toFixed(2);
+          card.style.opacity = 1;
+          startDrop();
+        }, 5000); // pause 5s avant reprise
+      }
+    }, 300);
+  }
 
-  // Cache initial des boutons
-  payBtn.style.display = "none";
-  lockBtn.style.display = "block";
-  card.classList.remove("blocked");
+  startDrop();
 
-  // Baisse du prix toutes les 0,3 s
-  cardState.interval = setInterval(() => {
-    if (!cardState.locked && cardState.price > 10) {
-      cardState.price = Math.max(10, cardState.price - 0.3);
-      priceEl.textContent = cardState.price.toFixed(2);
-    } else if (cardState.price <= 10) {
-      // Stop l'intervalle et rotation après 5s
-      clearInterval(cardState.interval);
-      setTimeout(() => rotateCard(cardState), 5000);
-    }
-  }, 300);
-
-  // Bloquer le prix
+  // Blocage du prix
   lockBtn.onclick = () => {
-    cardState.locked = true;
+    locked = true;
     lockBtn.style.display = "none";
     payBtn.style.display = "block";
-    card.classList.add("blocked");
+    card.classList.add("blocked"); // effet pulse
 
     setTimeout(() => {
-      if (!cardState.locked) return; // si déjà payé
-      cardState.locked = false;
+      if (!locked) return; // déjà payé
+      locked = false;
       payBtn.style.display = "none";
       lockBtn.style.display = "block";
       card.classList.remove("blocked");
-    }, 10000);
+    }, 10000); // 10s pour payer
   };
 
   // Paiement simulé
   payBtn.onclick = () => {
-    alert(`Paiement simulé ✔️\nObjet remporté à ${cardState.price.toFixed(2)} €`);
-    cardState.locked = true;
-    clearInterval(cardState.interval);
-    rotateCard(cardState);
+    alert(`Paiement simulé ✔️\nObjet remporté à ${price.toFixed(2)} €`);
+    locked = true;
+    clearInterval(interval);
+
+    // transition de rotation après paiement
+    card.style.opacity = 0.5;
+    setTimeout(() => {
+      price = initialPrice;
+      priceEl.textContent = price.toFixed(2);
+      card.style.opacity = 1;
+      locked = false;
+      payBtn.style.display = "none";
+      lockBtn.style.display = "block";
+      card.classList.remove("blocked");
+      startDrop();
+    }, 5000);
   };
-}
-
-// Rotation d'une carte
-function rotateCard(cardState) {
-  const card = cardState.card;
-  // cache avec transition
-  card.style.opacity = 0;
-  setTimeout(() => {
-    card.style.display = "none";
-    card.style.opacity = 1;
-    // réinitialiser le prix pour la prochaine enchère si tu veux
-    cardState.price = parseFloat(cardState.priceEl.textContent);
-    cardState.priceEl.textContent = cardState.price.toFixed(2);
-    startCard(cardState); // relance l'enchère
-  }, 5000);
-}
-
-// Lancer toutes les cartes
-state.forEach(cardState => startCard(cardState));
+});
 
 // Simulation du nombre de spectateurs
 setInterval(() => {
