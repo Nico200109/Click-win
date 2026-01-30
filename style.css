@@ -6,18 +6,9 @@ body {
   text-align: center;
 }
 
-.hero {
-  padding: 30px 20px;
-}
-
-.subtitle {
-  opacity: 0.9;
-}
-
-.info {
-  font-size: 14px;
-  opacity: 0.7;
-}
+.hero { padding: 30px 20px; }
+.subtitle { opacity: 0.9; }
+.info { font-size: 14px; opacity: 0.7; }
 
 nav a {
   color: #38bdf8;
@@ -36,10 +27,15 @@ nav a {
 .item-card {
   background: #111827;
   width: 260px;
+  height: 350px;
   padding: 16px;
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  position: relative;
+  overflow: hidden;
 }
+
+.content { height: 100%; }
 
 .item-card img {
   width: 100%;
@@ -48,20 +44,9 @@ nav a {
   border-radius: 12px;
 }
 
-.description {
-  font-size: 14px;
-  opacity: 0.85;
-}
-
-.price {
-  font-size: 18px;
-  margin: 10px 0;
-}
-
-.viewers {
-  font-size: 14px;
-  opacity: 0.8;
-}
+.description { font-size: 14px; opacity: 0.85; }
+.price { font-size: 18px; margin: 10px 0; }
+.viewers { font-size: 14px; opacity: 0.8; }
 
 button {
   width: 100%;
@@ -73,37 +58,20 @@ button {
   margin-top: 10px;
 }
 
-.lock-btn {
-  background: #2563eb;
-  color: white;
-}
+.lock-btn { background: #2563eb; color: white; }
+.pay-btn { background: #16a34a; color: white; display: none; }
 
-.pay-btn {
-  background: #16a34a;
-  color: white;
+.rotation-overlay {
   display: none;
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.85);
+  color: #38bdf8;
+  font-size: 22px;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  display: flex;
 }
-
-.blocked {
-  animation: pulse 1s infinite;
-}
-
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(22,163,74,0.6); }
-  70% { box-shadow: 0 0 0 12px rgba(22,163,74,0); }
-  100% { box-shadow: 0 0 0 0 rgba(22,163,74,0); }
-}
-
-/* GAGNANTS */
-.winners {
-  max-width: 500px;
-  margin: auto;
-}
-
-.winner-card {
-  background: #111827;
-  padding: 15px;
-  margin: 10px 0;
-  border-radius: 12px;
-}
-
