@@ -5,18 +5,12 @@
   <title>Click&Win</title>
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <header class="hero">
   <h1>Click&Win</h1>
-  <p class="subtitle">
-    Le prix baisse en temps réel. Bloquez-le avant les autres.
-  </p>
-  <p class="info">
-    Paiement sécurisé • Aucun abonnement • Objets renouvelés
-  </p>
-
+  <p class="subtitle">Le prix baisse en temps réel. Bloquez-le avant les autres.</p>
+  <p class="info">Paiement sécurisé • Aucun abonnement • Objets renouvelés</p>
   <nav>
     <a href="how-it-works.html">Comment ça marche</a> |
     <a href="winners.html">Gagnants</a>
@@ -24,40 +18,11 @@
 </header>
 
 <main class="items">
-
-  <!-- OBJET 1 -->
-  <div class="item-card">
-    <img src="https://via.placeholder.com/300x200" alt="Smartphone">
-    <h2>Smartphone</h2>
-    <p class="description">
-      Smartphone haut de gamme, débloqué tout opérateur, livré neuf avec garantie.
-    </p>
-
-    <p class="price">Prix actuel : <span class="price-value">120</span> €</p>
-    <p class="viewers">👀 <span class="count">18</span> personnes regardent</p>
-
-    <button class="lock-btn">Bloquer le prix</button>
-    <button class="pay-btn">Payer maintenant (10s)</button>
-  </div>
-
-  <!-- OBJET 2 -->
-  <div class="item-card">
-    <img src="https://via.placeholder.com/300x200" alt="Console">
-    <h2>Console de jeux</h2>
-    <p class="description">
-      Console de jeux dernière génération, neuve, prête à jouer dès réception.
-    </p>
-
-    <p class="price">Prix actuel : <span class="price-value">150</span> €</p>
-    <p class="viewers">👀 <span class="count">23</span> personnes regardent</p>
-
-    <button class="lock-btn">Bloquer le prix</button>
-    <button class="pay-btn">Payer maintenant (10s)</button>
-  </div>
-
+  <div class="item-card" data-index="0"></div>
+  <div class="item-card" data-index="1"></div>
 </main>
 
 <script src="script.js"></script>
+
 </body>
 </html>
-
