@@ -1,36 +1,24 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<title>Gagnants – Click&Win</title>
-<link rel="stylesheet" href="style.css">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body{font-family:Arial;background:#f8fafc;margin:0;padding:20px;}
-h1{text-align:center;}
-.item{background:#fff;padding:12px;margin:10px auto;max-width:500px;border-radius:8px;box-shadow:0 4px 10px rgba(0,0,0,0.08);}
-a{color:#4f46e5;font-weight:bold;text-decoration:none;}
-</style>
+  <meta charset="UTF-8">
+  <title>Gagnants – Click&Win</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<h1>Derniers gagnants</h1>
-<div id="list"></div>
+<header class="hero">
+  <h1>Derniers gagnants</h1>
+</header>
 
-<p style="text-align:center"><a href="index.html">⬅ Retour</a></p>
+<main class="winners">
+  <div class="winner-card">Julie – Smartphone à 42 €</div>
+  <div class="winner-card">Marc – Console à 58 €</div>
+  <div class="winner-card">Sarah – Smartphone à 39 €</div>
 
-<script>
-let winners=JSON.parse(localStorage.getItem("winners"))||[];
-const list=document.getElementById("list");
-
-if(winners.length===0){
- list.innerHTML="<p style='text-align:center'>Aucun gagnant pour le moment</p>";
-}else{
- winners.forEach(w=>{
-  list.innerHTML+=`<div class="item">🏆 ${w.name} – ${w.price} €<br><small>${w.date}</small></div>`;
- });
-}
-</script>
+  <a href="index.html">← Retour</a>
+</main>
 
 </body>
 </html>
