@@ -1,92 +1,31 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<title>Comment ça marche – Click&Win</title>
-<link rel="stylesheet" href="style.css">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<style>
-body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:#f8fafc;
-  color:#111827;
-}
-
-header{
-  background:linear-gradient(90deg,#1f2937,#4f46e5);
-  color:white;
-  padding:18px;
-  text-align:center;
-  font-size:24px;
-  font-weight:bold;
-}
-
-.container{
-  max-width:800px;
-  margin:40px auto;
-  padding:0 20px;
-}
-
-.step{
-  background:white;
-  border-radius:12px;
-  padding:20px;
-  margin-bottom:20px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.08);
-}
-
-.step h2{
-  margin-top:0;
-  color:#4f46e5;
-}
-
-.back{
-  display:block;
-  text-align:center;
-  margin:30px 0;
-  text-decoration:none;
-  color:#4f46e5;
-  font-weight:bold;
-}
-</style>
+  <meta charset="UTF-8">
+  <title>Comment ça marche – Click&Win</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header>Comment ça marche</header>
+<header class="hero">
+  <h1>Comment ça marche</h1>
+</header>
 
-<div class="container">
+<main style="max-width:600px;margin:auto;text-align:left;">
+  <ol>
+    <li>Le prix d’un objet baisse automatiquement</li>
+    <li>Vous bloquez le prix quand il vous convient</li>
+    <li>Vous avez 10 secondes pour payer</li>
+    <li>Si vous ne payez pas, l’objet repart en jeu</li>
+  </ol>
 
-  <div class="step">
-    <h2>1️⃣ Le prix baisse automatiquement</h2>
-    <p>Chaque objet démarre à un prix élevé qui baisse en temps réel. Plus vous attendez, plus le prix devient intéressant.</p>
-  </div>
+  <p>
+    Aucun abonnement. Aucun engagement.
+  </p>
 
-  <div class="step">
-    <h2>2️⃣ Bloquez le prix</h2>
-    <p>À tout moment, vous pouvez cliquer sur <strong>“Bloquer le prix”</strong>. Vous êtes alors le seul à pouvoir acheter l’objet.</p>
-  </div>
-
-  <div class="step">
-    <h2>3️⃣ 10 secondes pour payer</h2>
-    <p>Une fois le prix bloqué, vous avez 10 secondes pour finaliser votre achat.</p>
-  </div>
-
-  <div class="step">
-    <h2>4️⃣ Rotation des objets</h2>
-    <p>Si l’objet n’est pas acheté ou arrive à 10 €, il disparaît et un nouvel objet apparaît après quelques secondes.</p>
-  </div>
-
-  <div class="step">
-    <h2>5️⃣ Deux objets en même temps</h2>
-    <p>Deux objets sont toujours disponibles simultanément, chacun avec son propre compte à rebours.</p>
-  </div>
-
-  <a class="back" href="index.html">← Retour aux enchères</a>
-
-</div>
+  <a href="index.html">← Retour</a>
+</main>
 
 </body>
 </html>
