@@ -1,203 +1,185 @@
-/* =========================
-   VARIABLES GLOBALES
-========================= */
-:root {
-  --black: #0f0f0f;
-  --white: #ffffff;
-  --gray-bg: #f4f6f8;
-  --gray-light: #e5e7eb;
-  --gray-text: #4b5563;
-  --blue: #2563eb;
-  --blue-dark: #1e40af;
-  --green: #16a34a;
-  --orange: #f59e0b;
-}
-
-/* =========================
+/* --------------------
    RESET & BASE
-========================= */
+-------------------- */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-  background: var(--gray-bg);
-  color: var(--gray-text);
-  line-height: 1.6;
+    background: #F8FAFC;
+    color: #0F172A;
+    line-height: 1.6;
 }
 
-/* =========================
-   HEADER / NAV
-========================= */
+/* --------------------
+   HEADER
+-------------------- */
 header {
-  background: var(--black);
-  color: var(--white);
-  padding: 20px;
-  text-align: center;
+    padding: 30px 20px;
+    text-align: center;
 }
 
 header h1 {
-  font-size: 28px;
-  font-weight: 700;
-  letter-spacing: 1px;
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: -1px;
 }
 
+header p {
+    margin-top: 8px;
+    color: #64748B;
+    font-size: 1rem;
+}
+
+/* --------------------
+   NAVIGATION
+-------------------- */
 nav {
-  margin-top: 10px;
+    margin-top: 15px;
 }
 
 nav a {
-  color: var(--white);
-  margin: 0 12px;
-  text-decoration: none;
-  font-weight: 500;
-  opacity: 0.9;
+    margin: 0 10px;
+    text-decoration: none;
+    color: #2563EB;
+    font-weight: 500;
 }
 
 nav a:hover {
-  opacity: 1;
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
-/* =========================
-   CONTAINER
-========================= */
-.container {
-  max-width: 1100px;
-  margin: 40px auto;
-  padding: 0 20px;
+/* --------------------
+   MAIN LAYOUT
+-------------------- */
+main {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
 }
 
-/* =========================
-   OBJETS / CARTES
-========================= */
-.items {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 30px;
+.items-container {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
-.card {
-  background: var(--white);
-  border-radius: 14px;
-  padding: 20px;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.08);
-  text-align: center;
-  position: relative;
+/* --------------------
+   ITEM CARD
+-------------------- */
+.item {
+    background: #FFFFFF;
+    width: 260px;
+    border-radius: 18px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    text-align: center;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.card img {
-  width: 100%;
-  max-height: 180px;
-  object-fit: contain;
-  margin-bottom: 15px;
+.item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 40px rgba(15, 23, 42, 0.12);
 }
 
-.card h2 {
-  font-size: 18px;
-  color: var(--black);
-  margin-bottom: 8px;
+.item img {
+    width: 100%;
+    height: 150px;
+    object-fit: contain;
+    margin-bottom: 15px;
 }
 
-.card p {
-  font-size: 14px;
-  margin-bottom: 12px;
+/* --------------------
+   ITEM CONTENT
+-------------------- */
+.item h3 {
+    font-size: 1.05rem;
+    margin-bottom: 6px;
 }
 
-/* =========================
-   PRIX & TIMERS
-========================= */
+.item p {
+    font-size: 0.9rem;
+    color: #64748B;
+    margin-bottom: 12px;
+}
+
 .price {
-  font-size: 26px;
-  font-weight: 700;
-  color: var(--black);
-  margin-bottom: 10px;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 10px;
 }
 
 .timer {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--orange);
-  margin-bottom: 12px;
+    font-size: 0.9rem;
+    color: #F59E0B;
+    margin-bottom: 12px;
 }
 
-.locked {
-  color: var(--green);
-  font-weight: 700;
-}
-
-/* =========================
-   BOUTONS
-========================= */
+/* --------------------
+   BUTTONS
+-------------------- */
 button {
-  background: var(--blue);
-  color: var(--white);
-  border: none;
-  padding: 12px 18px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background 0.2s ease;
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.2s ease;
 }
 
-button:hover {
-  background: var(--blue-dark);
+button:active {
+    transform: scale(0.97);
 }
 
-button.pay {
-  background: var(--green);
+.block-btn {
+    background: #2563EB;
+    color: white;
 }
 
-button.pay:hover {
-  opacity: 0.9;
+.block-btn:hover {
+    background: #1E4FD8;
 }
 
-/* =========================
-   DÉCOMPTE 5 SECONDES
-========================= */
+.pay-btn {
+    background: #16A34A;
+    color: white;
+    margin-top: 10px;
+}
+
+.pay-btn:hover {
+    background: #15803D;
+}
+
+/* --------------------
+   INFO MESSAGES
+-------------------- */
+.info {
+    font-size: 0.85rem;
+    color: #64748B;
+    margin-top: 10px;
+}
+
+/* --------------------
+   COUNTDOWN PLACEHOLDER
+-------------------- */
 .waiting {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--black);
+    font-size: 1.1rem;
+    color: #64748B;
+    padding: 40px 0;
 }
 
-.waiting-icon {
-  font-size: 28px;
-  margin-top: 10px;
-}
-
-/* =========================
-   PAGES TEXTE
-========================= */
-.page {
-  background: var(--white);
-  border-radius: 14px;
-  padding: 30px;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.08);
-}
-
-.page h2 {
-  color: var(--black);
-  margin-bottom: 20px;
-}
-
-.page ol {
-  padding-left: 20px;
-}
-
-.page li {
-  margin-bottom: 10px;
-}
-
-/* =========================
+/* --------------------
    FOOTER
-========================= */
+-------------------- */
 footer {
-  text-align: center;
-  font-size: 13px;
-  color: var(--gray-text);
-  margin: 40px 0 20px;
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 0.85rem;
+    color: #64748B;
 }
