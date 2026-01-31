@@ -8,38 +8,6 @@ const objectPool = [
 
 const cards = document.querySelectorAll('.item-card');
 
-// Sauvegarde état
-function saveState() {
-  const state = [];
-  cards.forEach(card => {
-    const content = card.querySelector('.content');
-    if (!content) return;
-    const priceEl = content.querySelector('.price-value');
-    const lockBtn = content.querySelector('.lock-btn');
-    const payBtn = content.querySelector('.pay-btn');
-    const overlay = card.querySelector('.rotation-overlay');
-    state.push({
-      html: card.innerHTML,
-      timestamp: Date.now()
-    });
-  });
-  localStorage.setItem("clickwin_state", JSON.stringify(state));
-}
-
-// Charger état
-function loadState() {
-  const saved = localStorage.getItem("clickwin_state");
-  if (!saved) return false;
-  const data = JSON.parse(saved);
-  data.forEach((item, i) => {
-    if (cards[i]) {
-      cards[i].innerHTML = item.html;
-      startAuction(cards[i]);
-    }
-  });
-  return true;
-}
-
 function loadObject(card, object) {
   card.innerHTML = `
     <div class="content">
@@ -72,7 +40,6 @@ function startAuction(card) {
     if (!locked && price > 10) {
       price = Math.max(10, price - 0.6);
       priceEl.textContent = price.toFixed(2);
-      saveState();
     } else if (price <= 10) {
       clearInterval(priceInterval);
       startRotation(card);
@@ -98,7 +65,6 @@ function startAuction(card) {
         lockBtn.style.display = "block";
         startRotation(card);
       }
-      saveState();
     }, 1000);
 
     payBtn.onclick = () => {
@@ -115,13 +81,14 @@ function startRotation(card) {
 
   content.style.display = "none";
   overlay.style.display = "flex";
-  let counter = 5;
-  overlay.textContent = `Prochain objet : ${counter}`;
+  overlay.textContent = "Prochain objet : 5";
 
+  let counter = 5;
   const rotationInterval = setInterval(() => {
     counter--;
-    overlay.textContent = `Prochain objet : ${counter}`;
-    if (counter <= 0) {
+    if (counter > 0) {
+      overlay.textContent = `Prochain objet : ${counter}`;
+    } else {
       clearInterval(rotationInterval);
       const newObject = objectPool[Math.floor(Math.random() * objectPool.length)];
       loadObject(card, newObject);
@@ -129,20 +96,15 @@ function startRotation(card) {
       overlay.style.display = "none";
       startAuction(card);
     }
-    saveState();
   }, 1000);
 }
 
-// Initialisation
-if (!loadState()) {
-  cards.forEach(card => {
-    const obj = objectPool[Math.floor(Math.random() * objectPool.length)];
-    loadObject(card, obj);
-    startAuction(card);
-  });
-}
+cards.forEach(card => {
+  const obj = objectPool[Math.floor(Math.random() * objectPool.length)];
+  loadObject(card, obj);
+  startAuction(card);
+});
 
-// Simulation spectateurs
 setInterval(() => {
   document.querySelectorAll('.count').forEach(el => {
     let n = parseInt(el.textContent);
