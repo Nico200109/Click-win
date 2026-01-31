@@ -1,9 +1,9 @@
-body { 
-  margin: 0; 
-  font-family: Arial, sans-serif; 
-  background: #0f172a; 
-  color: white; 
-  text-align: center; 
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: white;
+  text-align: center;
 }
 
 .hero { padding: 30px 20px; }
@@ -12,50 +12,61 @@ body {
 
 nav a { color: #38bdf8; text-decoration: none; font-weight: bold; }
 
-.items { display: flex; justify-content: center; gap: 20px; margin: 40px auto; flex-wrap: wrap; }
+.items {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 40px auto;
+  flex-wrap: wrap;
+}
 
-.item-card { 
-  background: #111827; 
-  width: 260px; 
-  height: 350px; 
-  padding: 16px; 
-  border-radius: 16px; 
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4); 
-  position: relative; 
-  overflow: hidden; 
+.item-card {
+  background: #111827;
+  width: 260px;
+  height: 350px;
+  padding: 16px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  position: relative;
+  overflow: hidden;
 }
 
 .content { height: 100%; }
 
-.item-card img { width: 100%; height: 150px; object-fit: cover; border-radius: 12px; }
+.item-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 12px;
+}
 
 .description { font-size: 14px; opacity: 0.85; }
 .price { font-size: 18px; margin: 10px 0; }
 .viewers { font-size: 14px; opacity: 0.8; }
 
-button { 
-  width: 100%; 
-  padding: 12px; 
-  border-radius: 12px; 
-  border: none; 
-  font-weight: bold; 
-  cursor: pointer; 
-  margin-top: 10px; 
+button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
 }
 
 .lock-btn { background: #2563eb; color: white; }
 .pay-btn { background: #16a34a; color: white; display: none; }
 
-.rotation-overlay { 
-  display: none; 
-  position: absolute; 
-  top: 0; left: 0; 
-  width: 100%; height: 100%; 
-  background: rgba(0,0,0,0.85); 
-  color: #38bdf8; 
-  font-size: 22px; 
-  font-weight: bold; 
-  justify-content: center; 
-  align-items: center; 
-  text-align: center; 
+.rotation-overlay {
+  display: none;
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.85);
+  color: #38bdf8;
+  font-size: 22px;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
