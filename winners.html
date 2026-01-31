@@ -4,16 +4,77 @@
   <meta charset="UTF-8">
   <title>Gagnants – Click&Win</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .winners {
+      max-width: 500px;
+      margin: 40px auto;
+      text-align: center;
+    }
+
+    .winner-card {
+      background: #111827;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 12px;
+      opacity: 0;
+      transform: translateY(-20px);
+      animation: slideFadeIn 0.7s forwards;
+    }
+
+    @keyframes slideFadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    a {
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-block;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
+
 <header class="hero">
   <h1>Derniers gagnants</h1>
 </header>
-<main class="winners">
-  <div class="winner-card">Julie – Smartphone à 42 €</div>
-  <div class="winner-card">Marc – Console à 58 €</div>
-  <div class="winner-card">Sarah – Smartphone à 39 €</div>
-  <a href="index.html">← Retour</a>
+
+<main class="winners" id="winners-container">
+  <!-- Les gagnants seront injectés ici automatiquement -->
 </main>
+
+<a href="index.html">← Retour aux enchères</a>
+
+<script>
+function displayWinners() {
+  const container = document.getElementById('winners-container');
+  container.innerHTML = '';
+  const winners = JSON.parse(localStorage.getItem('winners') || '[]');
+
+  winners.forEach(winner => {
+    const card = document.createElement('div');
+    card.className = 'winner-card';
+    card.textContent = `${winner.name} – objet remporté à ${winner.price.toFixed(2)} €`;
+    container.appendChild(card);
+  });
+}
+
+// Affiche les gagnants au chargement
+displayWinners();
+
+// Optionnel : mise à jour automatique toutes les 2 secondes
+setInterval(displayWinners, 2000);
+</script>
+
 </body>
 </html>
+
+
