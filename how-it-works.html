@@ -4,19 +4,69 @@
   <meta charset="UTF-8">
   <title>Comment ça marche – Click&Win</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    main {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #111827;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+      text-align: left;
+      color: white;
+      font-size: 16px;
+    }
+
+    ol {
+      padding-left: 20px;
+      margin-bottom: 20px;
+    }
+
+    ol li {
+      margin-bottom: 12px;
+      position: relative;
+      padding-left: 25px;
+    }
+
+    ol li::before {
+      content: "✔";
+      position: absolute;
+      left: 0;
+      color: #38bdf8;
+      font-weight: bold;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 20px;
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+  </style>
 </head>
 <body>
+
 <header class="hero">
   <h1>Comment ça marche</h1>
 </header>
-<main style="max-width:600px;margin:auto;text-align:left;">
+
+<main>
   <ol>
-    <li>Le prix d’un objet baisse automatiquement</li>
-    <li>Vous bloquez le prix quand il vous convient</li>
-    <li>Vous avez 10 secondes pour payer</li>
-    <li>Sinon l’objet repart en jeu</li>
+    <li>Le prix d’un objet baisse automatiquement.</li>
+    <li>Vous pouvez bloquer le prix quand il vous convient.</li>
+    <li>Vous avez un temps limité pour payer (10 secondes par défaut).</li>
+    <li>Si le paiement n’est pas effectué, l’objet repart en enchère.</li>
+    <li>Les enchères tournent automatiquement entre plusieurs objets.</li>
   </ol>
-  <a href="index.html">← Retour</a>
+
+  <a href="index.html">← Retour aux enchères</a>
 </main>
+
 </body>
 </html>
