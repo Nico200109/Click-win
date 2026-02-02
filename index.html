@@ -5,20 +5,33 @@
   <title>Click&Win</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body onload="checkAuth()">
+<body>
 
-<header class="hero">
-  <h1>Click&Win</h1>
-  <p class="subtitle">Le prix baisse. Bloque-le avant les autres.</p>
-  <button onclick="logout()">Déconnexion</button>
+<header class="top-bar">
+  <div class="logo">Click&Win</div>
+
+  <nav class="nav-links">
+    <a href="index.html">Enchères</a>
+    <a href="how-it-works.html">Comment ça marche</a>
+    <a href="winners.html">Gagnants</a>
+  </nav>
+
+  <div class="user-area">
+    <button id="loginBtn">Se connecter</button>
+    <button id="logoutBtn" style="display:none;">Déconnexion</button>
+  </div>
 </header>
+
+<section class="hero">
+  <h1>Le prix baisse en temps réel</h1>
+  <p>Bloquez-le avant les autres</p>
+</section>
 
 <main class="items">
   <div class="item-card"></div>
   <div class="item-card"></div>
 </main>
 
-<script src="auth.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
