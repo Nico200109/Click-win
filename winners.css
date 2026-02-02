@@ -1,0 +1,46 @@
+.winner-container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.winner-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.winner-card {
+  background: linear-gradient(135deg, #111827, #020617);
+  border-radius: 16px;
+  padding: 18px 22px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+
+  opacity: 0;
+  transform: translateY(20px) scale(0.96);
+  animation: winnerEnter 0.6s ease forwards;
+}
+
+.winner-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #38bdf8;
+}
+
+.winner-price {
+  font-size: 16px;
+  font-weight: bold;
+  color: #22c55e;
+}
+
+@keyframes winnerEnter {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
