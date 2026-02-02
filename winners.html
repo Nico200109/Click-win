@@ -2,79 +2,54 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Gagnants – Click&Win</title>
+  <title>Click&Win - Gagnants</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    .winners {
-      max-width: 500px;
-      margin: 40px auto;
-      text-align: center;
-    }
-
-    .winner-card {
-      background: #111827;
-      padding: 15px;
-      margin: 10px 0;
-      border-radius: 12px;
-      opacity: 0;
-      transform: translateY(-20px);
-      animation: slideFadeIn 0.7s forwards;
-    }
-
-    @keyframes slideFadeIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    h1 {
-      margin-bottom: 20px;
-    }
-
-    a {
-      color: #38bdf8;
-      text-decoration: none;
-      font-weight: bold;
-      display: inline-block;
-      margin-top: 20px;
-    }
+    body { background:#0f172a; color:white; font-family:Arial,sans-serif; text-align:center; margin:0; }
+    h1 { padding:20px; }
+    .winner-list { display:flex; flex-direction:column; gap:15px; max-width:500px; margin:0 auto; }
+    .winner { background:#111827; padding:15px; border-radius:12px; box-shadow:0 5px 15px rgba(0,0,0,0.4);
+      display:flex; justify-content:space-between; align-items:center;
+      opacity:0; transform:translateY(20px); animation:fadeIn 0.6s forwards; }
+    .winner span { font-weight:bold; }
+    nav a { color:#38bdf8; text-decoration:none; font-weight:bold; margin:0 10px; }
+    @keyframes fadeIn { to {opacity:1; transform:translateY(0);} }
   </style>
 </head>
 <body>
+  <header>
+    <h1>Derniers Gagnants</h1>
+    <nav>
+      <a href="index.html">Retour aux enchères</a> |
+      <a href="how-it-works.html">Comment ça marche</a>
+    </nav>
+  </header>
 
-<header class="hero">
-  <h1>Derniers gagnants</h1>
-</header>
+  <main class="winner-list" id="winnerList">
+    <!-- Les gagnants apparaîtront ici -->
+  </main>
 
-<main class="winners" id="winners-container">
-  <!-- Les gagnants seront injectés ici automatiquement -->
-</main>
+  <script>
+    function loadWinners() {
+      const winners = JSON.parse(localStorage.getItem('winners') || '[]');
+      const container = document.getElementById('winnerList');
+      container.innerHTML = '';
+      winners.forEach((w,i) => {
+        const div = document.createElement('div');
+        div.className = 'winner';
+        div.style.animationDelay = (i*0.1)+'s';
+        div.innerHTML = `<span>${w.name}</span> a remporté <span>${w.price.toFixed(2)}€</span>`;
+        container.appendChild(div);
+      });
+    }
 
-<a href="index.html">← Retour aux enchères</a>
+    // Charger à l'ouverture
+    loadWinners();
 
-<script>
-function displayWinners() {
-  const container = document.getElementById('winners-container');
-  container.innerHTML = '';
-  const winners = JSON.parse(localStorage.getItem('winners') || '[]');
-
-  winners.forEach(winner => {
-    const card = document.createElement('div');
-    card.className = 'winner-card';
-    card.textContent = `${winner.name} – objet remporté à ${winner.price.toFixed(2)} €`;
-    container.appendChild(card);
-  });
-}
-
-// Affiche les gagnants au chargement
-displayWinners();
-
-// Optionnel : mise à jour automatique toutes les 2 secondes
-setInterval(displayWinners, 2000);
-</script>
-
+    // Écouter les changements de localStorage pour les ajouts en direct
+    window.addEventListener('storage', (e) => {
+      if(e.key==='winners') loadWinners();
+    });
+  </script>
 </body>
 </html>
-
-
