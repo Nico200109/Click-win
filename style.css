@@ -1,72 +1,43 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #020617;
+  background: #0f172a;
   color: white;
-}
-
-.top-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 30px;
-  background: #020617;
-  border-bottom: 1px solid #1e293b;
-}
-
-.logo {
-  font-size: 22px;
-  font-weight: bold;
-  color: #38bdf8;
-}
-
-.nav-links a {
-  margin: 0 12px;
-  color: #e5e7eb;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.nav-links a:hover {
-  color: #38bdf8;
-}
-
-.user-area button {
-  background: #2563eb;
-  color: white;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
+  text-align: center;
 }
 
 .hero {
-  text-align: center;
   padding: 30px;
+}
+
+nav a, nav button {
+  color: #38bdf8;
+  margin: 0 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
 }
 
 .items {
   display: flex;
   justify-content: center;
   gap: 20px;
-  padding: 30px;
+  margin: 40px auto;
 }
 
 .item-card {
   background: #111827;
   width: 260px;
-  height: 360px;
   padding: 16px;
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.4);
   position: relative;
-  overflow: hidden;
 }
 
 .item-card img {
   width: 100%;
-  height: 140px;
+  height: 150px;
   object-fit: cover;
   border-radius: 12px;
 }
@@ -78,29 +49,27 @@ body {
 
 .viewers {
   font-size: 14px;
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
-button.lock-btn {
+button {
   width: 100%;
-  padding: 12px;
-  border-radius: 12px;
+  padding: 10px;
+  border-radius: 10px;
   border: none;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.lock-btn {
   background: #2563eb;
   color: white;
-  font-weight: bold;
-  cursor: pointer;
 }
 
-button.pay-btn {
-  width: 100%;
-  padding: 12px;
-  border-radius: 12px;
-  border: none;
+.pay-btn {
   background: #16a34a;
   color: white;
-  font-weight: bold;
-  cursor: pointer;
   display: none;
 }
 
@@ -112,6 +81,6 @@ button.pay-btn {
   color: #38bdf8;
   font-size: 22px;
   font-weight: bold;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
