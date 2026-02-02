@@ -2,22 +2,23 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Connexion – Click&Win</title>
+  <title>Connexion</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="auth-box">
-  <h1>Connexion</h1>
+<h2>Connexion</h2>
+<input id="name" placeholder="Votre prénom">
+<button onclick="login()">Se connecter</button>
 
-  <input id="email" type="email" placeholder="Email">
-  <input id="password" type="password" placeholder="Mot de passe">
+<script>
+function login() {
+  const name = document.getElementById("name").value;
+  if (!name) return alert("Entrez un prénom");
+  localStorage.setItem("user", JSON.stringify({name}));
+  location.href = "index.html";
+}
+</script>
 
-  <button onclick="login()">Se connecter</button>
-
-  <p>Pas encore inscrit ? <a href="register.html">Créer un compte</a></p>
-</div>
-
-<script src="auth.js"></script>
 </body>
 </html>
