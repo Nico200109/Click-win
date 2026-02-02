@@ -10,32 +10,18 @@
 <header class="hero">
   <h1>Click&Win</h1>
   <p class="subtitle">Le prix baisse en temps réel. Bloquez-le avant les autres.</p>
-
+  <p class="info">Paiement sécurisé • Aucun abonnement • Objets renouvelés</p>
   <nav>
-    <a href="index.html">Enchères</a>
+    <a href="how-it-works.html">Comment ça marche</a> |
     <a href="winners.html">Gagnants</a>
-    <a href="login.html" id="loginLink">Connexion</a>
-    <button id="logoutBtn" style="display:none;">Déconnexion</button>
   </nav>
 </header>
 
 <main class="items">
-  <div class="item-card"></div>
-  <div class="item-card"></div>
+  <div class="item-card" data-slot="0"></div>
+  <div class="item-card" data-slot="1"></div>
 </main>
 
 <script src="script.js"></script>
-<script>
-  const user = localStorage.getItem("user");
-  if (user) {
-    document.getElementById("loginLink").style.display = "none";
-    document.getElementById("logoutBtn").style.display = "inline-block";
-    document.getElementById("logoutBtn").onclick = () => {
-      localStorage.removeItem("user");
-      location.reload();
-    };
-  }
-</script>
-
 </body>
 </html>
