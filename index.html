@@ -5,16 +5,12 @@
   <title>Click&Win</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body onload="checkAuth()">
 
 <header class="hero">
   <h1>Click&Win</h1>
-  <p class="subtitle">Le prix baisse en temps réel. Bloquez-le avant les autres.</p>
-  <p class="info">Paiement sécurisé • Aucun abonnement • Objets renouvelés</p>
-  <nav>
-    <a href="how-it-works.html">Comment ça marche</a> |
-    <a href="winners.html">Gagnants</a>
-  </nav>
+  <p class="subtitle">Le prix baisse. Bloque-le avant les autres.</p>
+  <button onclick="logout()">Déconnexion</button>
 </header>
 
 <main class="items">
@@ -22,7 +18,7 @@
   <div class="item-card"></div>
 </main>
 
+<script src="auth.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
-
