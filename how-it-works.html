@@ -1,26 +1,68 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Comment ça marche</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click&Win - Comment ça marche</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .step {
+            background-color: #2c2c2c;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+
+        .step-number {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .step-text {
+            font-size: 1rem;
+        }
+    </style>
 </head>
 <body>
-
-<header class="hero">
-  <h1>Comment ça marche</h1>
-  <nav>
-    <a href="index.html">Enchères</a> |
-    <a href="winners.html">Gagnants</a>
-  </nav>
-</header>
-
-<main class="items">
-  <div class="item-card">1️⃣ Le prix baisse automatiquement</div>
-  <div class="item-card">2️⃣ Bloquez le prix</div>
-  <div class="item-card">3️⃣ Payez avant les autres</div>
-  <div class="item-card">4️⃣ Gagnez l’objet 🎉</div>
-</main>
-
+    <div class="container">
+        <h1>Comment ça marche</h1>
+        <div class="step">
+            <div class="step-number">1. Choisir une enchère</div>
+            <div class="step-text">Sélectionnez l'objet que vous voulez tenter de gagner.</div>
+        </div>
+        <div class="step">
+            <div class="step-number">2. Surveiller le prix</div>
+            <div class="step-text">Le prix baisse automatiquement jusqu'à un plancher minimum.</div>
+        </div>
+        <div class="step">
+            <div class="step-number">3. Bloquer le prix</div>
+            <div class="step-text">Appuyez sur le bouton « Bloquer le prix » pour sécuriser l'enchère.</div>
+        </div>
+        <div class="step">
+            <div class="step-number">4. Payer et gagner</div>
+            <div class="step-text">Effectuez le paiement dans le temps imparti et votre nom apparaît sur la page Gagnants.</div>
+        </div>
+    </div>
 </body>
 </html>
