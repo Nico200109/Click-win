@@ -1,22 +1,43 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Gagnants</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click&Win - Gagnants</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
-<header class="hero">
-  <h1>🏆 Gagnants</h1>
-  <nav>
-    <a href="index.html">Enchères</a> |
-    <a href="how-it-works.html">Comment ça marche</a>
-  </nav>
-</header>
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            text-align: center;
+        }
 
-<main id="winners"></main>
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+        }
 
-<script src="winners.js"></script>
-</body>
-</html>
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #2c2c2c;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            text-align: left;
+        }
+
+        li span {
+            display: inline-block;
