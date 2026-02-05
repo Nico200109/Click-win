@@ -22,24 +22,20 @@ nav a {
 .items {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 30px;
   margin: 40px auto;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
 }
 
 .item-card {
   background: #111827;
-  width: 260px;
-  height: 360px;
+  width: 280px;
+  height: 380px;
   padding: 16px;
   border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
   position: relative;
   overflow: hidden;
-}
-
-.content {
-  height: 100%;
 }
 
 .item-card img {
