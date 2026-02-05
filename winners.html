@@ -1,56 +1,59 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Click&Win - Gagnants</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    body { background:#0f172a; color:white; font-family:Arial,sans-serif; text-align:center; margin:0; }
-    h1 { padding:20px; }
-    .winner-list { display:flex; flex-direction:column; gap:15px; max-width:500px; margin:0 auto; }
-    .winner { background:#111827; padding:15px; border-radius:12px; box-shadow:0 5px 15px rgba(0,0,0,0.4);
-      display:flex; justify-content:space-between; align-items:center;
-      opacity:0; transform:translateY(20px); animation:fadeIn 0.6s forwards; }
-    .winner span { font-weight:bold; }
-    nav a { color:#38bdf8; text-decoration:none; font-weight:bold; margin:0 10px; }
-    @keyframes fadeIn { to {opacity:1; transform:translateY(0);} }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click&Win - Gagnants</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #2c2c2c;
+            margin-bottom: 10px;
+            padding: 12px 15px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        li span {
+            display: inline-block;
+            min-width: 100px;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Derniers Gagnants</h1>
-    <nav>
-      <a href="index.html">Retour aux enchères</a> |
-      <a href="how-it-works.html">Comment ça marche</a>
-    </nav>
-  </header>
-
-  <main class="winner-list" id="winnerList">
-    <!-- Les gagnants apparaîtront ici -->
-  </main>
-
-  <script>
-    function loadWinners() {
-      const winners = JSON.parse(localStorage.getItem('winners') || '[]');
-      const container = document.getElementById('winnerList');
-      container.innerHTML = '';
-      winners.forEach((w,i) => {
-        const div = document.createElement('div');
-        div.className = 'winner';
-        div.style.animationDelay = (i*0.1)+'s';
-        div.innerHTML = `<span>${w.name}</span> a remporté <span>${w.price.toFixed(2)}€</span>`;
-        container.appendChild(div);
-      });
-    }
-
-    // Charger à l'ouverture
-    loadWinners();
-
-    // Écouter les changements de localStorage pour les ajouts en direct
-    window.addEventListener('storage', (e) => {
-      if(e.key==='winners') loadWinners();
-    });
-  </script>
+    <div class="container">
+        <h1>Gagnants</h1>
+        <ul id="winners-list">
+            <!-- Les gagnants seront injectés par winners.js -->
+        </ul>
+    </div>
+    <script src="winners.js"></script>
 </body>
 </html>
-
