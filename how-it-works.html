@@ -1,59 +1,68 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Click&Win - Comment ça marche</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    body { background:#0f172a; color:white; font-family:Arial,sans-serif; text-align:center; margin:0; }
-    header { padding:20px; }
-    h1 { margin-bottom:10px; }
-    nav a { color:#38bdf8; text-decoration:none; font-weight:bold; margin:0 10px; }
-    .steps { display:flex; flex-direction:column; gap:30px; max-width:600px; margin:0 auto; padding:20px; }
-    .step { background:#111827; padding:20px; border-radius:12px; box-shadow:0 5px 15px rgba(0,0,0,0.4);
-      opacity:0; transform:translateY(20px); animation:fadeIn 0.6s forwards; }
-    .step h2 { margin-top:0; color:#38bdf8; }
-    .step p { opacity:0.85; }
-    @keyframes fadeIn { to {opacity:1; transform:translateY(0);} }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click&Win - Comment ça marche</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .step {
+            background-color: #2c2c2c;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+
+        .step-number {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .step-text {
+            font-size: 1rem;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Comment ça marche</h1>
-    <nav>
-      <a href="index.html">Retour aux enchères</a> |
-      <a href="winners.html">Gagnants</a>
-    </nav>
-  </header>
-
-  <main class="steps">
-    <div class="step" style="animation-delay:0.1s;">
-      <h2>1️⃣ Choisissez un objet</h2>
-      <p>Parcourez les enchères en direct et sélectionnez l'objet qui vous intéresse.</p>
+    <div class="container">
+        <h1>Comment ça marche</h1>
+        <div class="step">
+            <div class="step-number">1. Choisir une enchère</div>
+            <div class="step-text">Sélectionnez l'objet que vous voulez tenter de gagner.</div>
+        </div>
+        <div class="step">
+            <div class="step-number">2. Surveiller le prix</div>
+            <div class="step-text">Le prix baisse automatiquement jusqu'à un plancher minimum.</div>
+        </div>
+        <div class="step">
+            <div class="step-number">3. Bloquer le prix</div>
+            <div class="step-text">Appuyez sur le bouton « Bloquer le prix » pour sécuriser l'enchère.</div>
+        </div>
+        <div class="step">
+            <div class="step-number">4. Payer et gagner</div>
+            <div class="step-text">Effectuez le paiement dans le temps imparti et votre nom apparaît sur la page Gagnants.</div>
+        </div>
     </div>
-    <div class="step" style="animation-delay:0.3s;">
-      <h2>2️⃣ Le prix baisse</h2>
-      <p>Le prix de chaque objet descend en temps réel. Soyez rapide et stratégique !</p>
-    </div>
-    <div class="step" style="animation-delay:0.5s;">
-      <h2>3️⃣ Bloquez le prix</h2>
-      <p>Appuyez sur "Bloquer le prix" quand il vous convient pour sécuriser votre achat.</p>
-    </div>
-    <div class="step" style="animation-delay:0.7s;">
-      <h2>4️⃣ Payez et gagnez</h2>
-      <p>Finalisez votre paiement et devenez instantanément le gagnant. Votre nom s'affiche dans la liste des gagnants !</p>
-    </div>
-  </main>
-
-  <script>
-    // Animation step par step (facultatif si tu veux un petit effet à l'apparition)
-    const steps = document.querySelectorAll('.step');
-    steps.forEach((step, i) => {
-      setTimeout(() => {
-        step.style.opacity = 1;
-        step.style.transform = 'translateY(0)';
-      }, 200*i);
-    });
-  </script>
 </body>
 </html>
