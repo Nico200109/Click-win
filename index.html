@@ -1,27 +1,26 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Click&Win - Enchères</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Click&Win</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="container">
-    <h1>Click&Win - Enchères</h1>
-    <div class="auction-container">
-        <div class="auction-card" id="auction_1">
-            <h2>Objet 1</h2>
-            <div class="auction-price" id="price_1">50 €</div>
-            <button class="block-btn" onclick="blockPrice(1)">Bloquer le prix</button>
-        </div>
-        <div class="auction-card" id="auction_2">
-            <h2>Objet 2</h2>
-            <div class="auction-price" id="price_2">75 €</div>
-            <button class="block-btn" onclick="blockPrice(2)">Bloquer le prix</button>
-        </div>
-    </div>
-</div>
+<header class="hero">
+  <h1>Click&Win</h1>
+  <p class="subtitle">Le prix baisse en temps réel. Bloquez-le avant les autres.</p>
+  <p class="info">Paiement sécurisé • Aucun abonnement • Objets renouvelés</p>
+  <nav>
+    <a href="how-it-works.html">Comment ça marche</a> |
+    <a href="winners.html">Gagnants</a>
+  </nav>
+</header>
+
+<main class="items">
+  <div class="item-card"></div>
+  <div class="item-card"></div>
+</main>
+
 <script src="script.js"></script>
 </body>
 </html>
