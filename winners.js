@@ -1,44 +1,19 @@
-const list = document.getElementById("winnerList");
+const list = document.getElementById("winnersList");
+const winners = JSON.parse(localStorage.getItem("winners") || "[]");
 
-function renderWinners() {
-  const winners = JSON.parse(localStorage.getItem("winners") || "[]");
-  list.innerHTML = "";
+list.innerHTML = "";
 
-  winners.forEach(winner => {
-    const div = document.createElement("div");
-    div.className = "winner-card";
-    div.innerHTML = `
-      <div class="winner-name">${winner.name}</div>
-      <div class="winner-price">${winner.price.toFixed(2)} €</div>
-    `;
-    list.appendChild(div);
-  });
+if (winners.length === 0) {
+  list.innerHTML = "<p>Aucun gagnant pour le moment</p>";
 }
 
-// Chargement initial
-renderWinners();
-
-/*
-  Mise à jour UNIQUEMENT
-  quand un nouvel achat est enregistré
-*/
-window.addEventListener("storage", (event) => {
-  if (event.key !== "winners") return;
-
-  const winners = JSON.parse(event.newValue || "[]");
-  const latest = winners[0];
-  if (!latest) return;
-
+winners.forEach(w => {
   const div = document.createElement("div");
-  div.className = "winner-card";
+  div.className = "item-card";
   div.innerHTML = `
-    <div class="winner-name">${latest.name}</div>
-    <div class="winner-price">${latest.price.toFixed(2)} €</div>
+    <h3>${w.user}</h3>
+    <p>${w.object}</p>
+    <strong>${w.price} €</strong>
   `;
-
-  list.prepend(div);
-
-  if (list.children.length > 10) {
-    list.removeChild(list.lastChild);
-  }
+  list.appendChild(div);
 });
