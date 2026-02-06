@@ -1,93 +1,80 @@
-/* ----------------------------- */
-/* Style global Click&Win        */
-/* ----------------------------- */
-
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #1e3a8a; /* fond bleu foncé */
-    color: #ffffff;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: white;
+  text-align: center;
 }
 
-/* Containers centrés */
-.container {
-    max-width: 900px;
-    margin: 50px auto;
-    padding: 20px;
+.hero { padding: 30px 20px; }
+.subtitle { opacity: 0.9; }
+.info { font-size: 14px; opacity: 0.7; }
+
+nav a {
+  color: #38bdf8;
+  text-decoration: none;
+  font-weight: bold;
+  margin: 0 10px;
 }
 
-/* Titres */
-h1 {
-    font-size: 2rem;
-    margin-bottom: 30px;
-    text-align: center;
+.items {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 40px auto;
+  flex-wrap: nowrap; /* on force 2 cartes côte à côte */
 }
 
-/* Cartes / blocs */
-.card, .step, li.auction-item {
-    background-color: #2563eb; /* bleu plus clair pour les blocs */
-    border-radius: 6px;
-    padding: 15px 20px;
-    margin-bottom: 20px;
-    color: #fff;
+.item-card {
+  background: #111827;
+  width: 260px;
+  height: 380px;
+  padding: 16px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s;
 }
 
-/* Listes gagnants */
-ul#winners-list {
-    list-style: none;
-    padding: 0;
+.item-card:hover { transform: translateY(-5px); }
+
+.content { height: 100%; }
+
+.item-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 12px;
 }
 
-ul#winners-list li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* Steps - Comment ça marche */
-.step-number {
-    font-weight: bold;
-    font-size: 1.2rem;
-    margin-bottom: 5px;
-}
-
-.step-text {
-    font-size: 1rem;
-}
-
-/* Enchères */
-.auction-container {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.auction-card {
-    background-color: #2563eb; /* bleu blocs enchères */
-    padding: 15px;
-    border-radius: 6px;
-    width: 300px;
-    text-align: center;
-    color: #fff;
-}
-
-.auction-price {
-    font-size: 1.5rem;
-    margin: 10px 0;
-}
+.description { font-size: 14px; opacity: 0.85; }
+.price { font-size: 18px; margin: 10px 0; }
+.viewers { font-size: 14px; opacity: 0.8; }
 
 button {
-    background-color: #ffcc00;
-    color: #000;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 6px;
-    cursor: pointer;
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
 }
 
-button:disabled {
-    background-color: #555;
-    cursor: not-allowed;
+.lock-btn { background: #2563eb; color: white; }
+.pay-btn { background: #16a34a; color: white; display: none; }
+
+.rotation-overlay {
+  display: none;
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.85);
+  color: #38bdf8;
+  font-size: 22px;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
