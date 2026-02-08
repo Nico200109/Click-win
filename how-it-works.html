@@ -2,58 +2,62 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Click&Win - Comment ça marche</title>
+  <title>Comment fonctionne le prix dynamique – Click&Win</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    body { background:#0f172a; color:white; font-family:Arial,sans-serif; text-align:center; margin:0; }
-    header { padding:20px; }
-    h1 { margin-bottom:10px; }
-    nav a { color:#38bdf8; text-decoration:none; font-weight:bold; margin:0 10px; }
-    .steps { display:flex; flex-direction:column; gap:30px; max-width:600px; margin:0 auto; padding:20px; }
-    .step { background:#111827; padding:20px; border-radius:12px; box-shadow:0 5px 15px rgba(0,0,0,0.4);
-      opacity:0; transform:translateY(20px); animation:fadeIn 0.6s forwards; }
-    .step h2 { margin-top:0; color:#38bdf8; }
-    .step p { opacity:0.85; }
-    @keyframes fadeIn { to {opacity:1; transform:translateY(0);} }
-  </style>
 </head>
 <body>
-  <header>
-    <h1>Comment ça marche</h1>
-    <nav>
-      <a href="index.html">Retour aux enchères</a> |
-      <a href="winners.html">Gagnants</a>
-    </nav>
-  </header>
 
-  <main class="steps">
-    <div class="step" style="animation-delay:0.1s;">
-      <h2>1️⃣ Choisissez un objet</h2>
-      <p>Parcourez les enchères en direct et sélectionnez l'objet qui vous intéresse.</p>
-    </div>
-    <div class="step" style="animation-delay:0.3s;">
-      <h2>2️⃣ Le prix baisse</h2>
-      <p>Le prix de chaque objet descend en temps réel. Soyez rapide et stratégique !</p>
-    </div>
-    <div class="step" style="animation-delay:0.5s;">
-      <h2>3️⃣ Bloquez le prix</h2>
-      <p>Appuyez sur "Bloquer le prix" quand il vous convient pour sécuriser votre achat.</p>
-    </div>
-    <div class="step" style="animation-delay:0.7s;">
-      <h2>4️⃣ Payez et gagnez</h2>
-      <p>Finalisez votre paiement et devenez instantanément le gagnant. Votre nom s'affiche dans la liste des gagnants !</p>
-    </div>
-  </main>
+<header class="hero">
+  <h1>Comment fonctionne le prix dynamique</h1>
+  <p class="subtitle">
+    Un système simple, transparent et automatique.
+  </p>
+  <nav>
+    <a href="index.html">← Retour aux offres</a>
+  </nav>
+</header>
 
-  <script>
-    // Animation step par step (facultatif si tu veux un petit effet à l'apparition)
-    const steps = document.querySelectorAll('.step');
-    steps.forEach((step, i) => {
-      setTimeout(() => {
-        step.style.opacity = 1;
-        step.style.transform = 'translateY(0)';
-      }, 200*i);
-    });
-  </script>
+<main class="content-page">
+  <section class="card">
+    <h2>📉 Un prix qui baisse avec le temps</h2>
+    <p>
+      Chaque produit proposé sur Click&Win dispose d’un prix de départ.
+      Ce prix diminue automatiquement au fil du temps, selon un rythme prédéfini.
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>🔒 Réserver un prix</h2>
+    <p>
+      À tout moment, vous pouvez réserver le prix actuel.
+      Ce prix est alors temporairement bloqué le temps de finaliser votre achat.
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>💳 Finaliser l’achat</h2>
+    <p>
+      Une fois le prix réservé, vous disposez d’un délai limité pour procéder au paiement.
+      Si le paiement n’est pas effectué à temps, l’offre est automatiquement renouvelée.
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>🔁 Renouvellement des offres</h2>
+    <p>
+      Lorsqu’un produit est acheté ou que la réservation expire,
+      une nouvelle offre est automatiquement mise en ligne.
+    </p>
+  </section>
+
+  <section class="card">
+    <h2>⚖️ Transparence</h2>
+    <p>
+      Click&Win est un site de vente en ligne à prix dynamique.
+      Il ne s’agit ni d’un système d’enchères ni d’un jeu de hasard.
+    </p>
+  </section>
+</main>
+
 </body>
 </html>
