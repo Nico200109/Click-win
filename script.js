@@ -1,14 +1,10 @@
 const objectPool = [
   {name:"Smartphone", price:120, img:"./images/smartphone.png", paymentTime:8, description:"Smartphone moderne avec écran HD et caméra 12MP."},
   {name:"Console", price:200, img:"./images/console.png", paymentTime:12, description:"Console dernière génération avec manette incluse."},
-  {name:"Séjour Paris", price:500, img:"./images/paris.png", paymentTime:15, description:"Voyage pour 2 personnes avec hôtel 3 nuits inclus."},
-  {name:"Casque Audio", price:80, img:"./images/casque.png", paymentTime:6, description:"Casque bluetooth avec réduction de bruit."},
-  {name:"Montre Connectée", price:60, img:"./images/montre.png", paymentTime:7, description:"Montre intelligente pour suivre vos activités."}
+  {name:"Séjour Paris", price:500, img:"./images/paris.png", paymentTime:15, description:"Voyage pour 2 personnes avec hôtel 3 nuits inclus."}
 ];
 
 const cards = document.querySelectorAll('.item-card');
-
-// Récupération ou initialisation de l'état
 let auctionsState = JSON.parse(localStorage.getItem('auctionsState') || '[]');
 
 if(auctionsState.length !== cards.length){
@@ -19,7 +15,6 @@ if(auctionsState.length !== cards.length){
   localStorage.setItem('auctionsState', JSON.stringify(auctionsState));
 }
 
-// Fonction pour afficher un produit sur une carte
 function loadObject(card, stateIndex){
   const object = auctionsState[stateIndex].object;
   card.innerHTML = `
@@ -35,7 +30,6 @@ function loadObject(card, stateIndex){
   `;
 }
 
-// Fonction principale d'enchère / prix dynamique
 function startAuction(card, stateIndex){
   const state = auctionsState[stateIndex];
   const content = card.querySelector('.content');
@@ -48,18 +42,13 @@ function startAuction(card, stateIndex){
   let locked = state.locked;
   let countdown = state.countdown;
 
-  // Affichage initial
   if(locked){
     lockBtn.style.display = "none";
     payBtn.style.display = "block";
-    payBtn.textContent = `Payer maintenant (${countdown}s)`;
-  } else {
-    payBtn.style.display = "none";
-    lockBtn.style.display = "block";
   }
 
-  // Interval unique pour la baisse du prix
   if(card.priceInterval) clearInterval(card.priceInterval);
+
   card.priceInterval = setInterval(() => {
     if(!locked && price > 10){
       price = Math.max(10, price - 0.5);
@@ -72,7 +61,6 @@ function startAuction(card, stateIndex){
     }
   }, 300);
 
-  // Bloquer le prix
   lockBtn.onclick = () => {
     locked = true;
     state.locked = true;
@@ -83,6 +71,7 @@ function startAuction(card, stateIndex){
     payBtn.textContent = `Payer maintenant (${countdown}s)`;
 
     if(card.payInterval) clearInterval(card.payInterval);
+
     card.payInterval = setInterval(() => {
       countdown--;
       state.countdown = countdown;
@@ -99,11 +88,10 @@ function startAuction(card, stateIndex){
       }
     }, 1000);
 
-    // Paiement
     payBtn.onclick = () => {
       clearInterval(card.payInterval);
       addWinner({name: state.object.name, price});
-      alert(`Paiement simulé ✔️\nObjet : ${state.object.name} à ${price.toFixed(2)} €`);
+      alert(`Paiement simulé ✔️ Objet : ${state.object.name} à ${price.toFixed(2)} €`);
       locked = false;
       state.locked = false;
       startRotation(card, stateIndex);
@@ -111,7 +99,6 @@ function startAuction(card, stateIndex){
   };
 }
 
-// Fonction de rotation des produits
 function startRotation(card, stateIndex){
   const state = auctionsState[stateIndex];
   const content = card.querySelector('.content');
@@ -142,7 +129,6 @@ function startRotation(card, stateIndex){
   }, 1000);
 }
 
-// Ajouter un produit à l’historique
 function addWinner(winner){
   const winners = JSON.parse(localStorage.getItem('winners') || '[]');
   winners.unshift({name: winner.name, price: winner.price});
@@ -150,7 +136,6 @@ function addWinner(winner){
   localStorage.setItem('winners', JSON.stringify(winners));
 }
 
-// Initialisation des cartes
 cards.forEach((card, index) => {
   loadObject(card, index);
   startAuction(card, index);
