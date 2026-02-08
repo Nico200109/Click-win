@@ -1,46 +1,70 @@
 const products = [
-  { name: "Smartphone", price: 120, min: 60, img: "./images/smartphone.png" },
-  { name: "Console", price: 200, min: 100, img: "./images/console.png" }
+  {
+    name: "Smartphone",
+    start: 120,
+    min: 60,
+    img: "./images/smartphone.png"
+  },
+  {
+    name: "Console",
+    start: 200,
+    min: 110,
+    img: "./images/console.png"
+  },
+  {
+    name: "Séjour à Paris",
+    start: 350,
+    min: 200,
+    img: "./images/paris.png"
+  }
 ];
 
-const cards = document.querySelectorAll(".item-card");
-let intervals = [];
+let currentIndex = 0;
+let priceInterval;
+let currentPrice;
 
-function startProduct(card, index) {
-  const product = products[index];
-  let currentPrice = product.price;
+const card = document.querySelector(".card");
+
+function loadProduct(index) {
+  const p = products[index];
+  currentPrice = p.start;
 
   card.innerHTML = `
-    <img src="${product.img}" alt="${product.name}">
-    <h2>${product.name}</h2>
+    <img src="${p.img}">
+    <h2>${p.name}</h2>
     <p class="price">Prix actuel : <span>${currentPrice.toFixed(2)}</span> €</p>
-    <button class="lock-btn">Réserver ce prix</button>
-    <button class="pay-btn">Acheter maintenant</button>
+    <button class="lock">Bloquer ce prix</button>
+    <button class="pay">Payer maintenant</button>
   `;
 
   const priceSpan = card.querySelector("span");
-  const lockBtn = card.querySelector(".lock-btn");
-  const payBtn = card.querySelector(".pay-btn");
+  const lockBtn = card.querySelector(".lock");
+  const payBtn = card.querySelector(".pay");
 
-  // 🔥 Sécurité : on nettoie l'ancien interval
-  if (intervals[index]) clearInterval(intervals[index]);
+  clearInterval(priceInterval);
 
-  intervals[index] = setInterval(() => {
-    if (currentPrice > product.min) {
-      currentPrice -= 0.2;
+  priceInterval = setInterval(() => {
+    if (currentPrice > p.min) {
+      currentPrice -= 0.5;
       priceSpan.textContent = currentPrice.toFixed(2);
     }
   }, 2000);
 
   lockBtn.onclick = () => {
-    clearInterval(intervals[index]);
+    clearInterval(priceInterval);
     lockBtn.style.display = "none";
     payBtn.style.display = "block";
   };
 
   payBtn.onclick = () => {
-    alert(`Achat simulé : ${product.name} à ${currentPrice.toFixed(2)} €`);
+    alert(`Paiement simulé à ${currentPrice.toFixed(2)} €`);
   };
 }
 
-cards.forEach((card, i) => startProduct(card, i));
+// 🔁 rotation automatique
+setInterval(() => {
+  currentIndex = (currentIndex + 1) % products.length;
+  loadProduct(currentIndex);
+}, 20000);
+
+loadProduct(currentIndex);
