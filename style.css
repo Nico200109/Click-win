@@ -5,49 +5,33 @@
 
 body {
   margin: 0;
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  background: #0d2b6b;
   color: white;
 }
 
-/* HEADER */
 header {
   text-align: center;
   padding: 30px 20px;
 }
 
-header h1 {
-  margin-bottom: 10px;
-}
+header h1 { margin-bottom: 10px; }
+header p { opacity: 0.9; }
 
-header p {
-  opacity: 0.9;
-}
-
-/* NAV */
-nav {
-  margin-top: 15px;
-}
-
+nav { margin-top: 15px; }
 nav a {
   color: #00ffcc;
   text-decoration: none;
   font-weight: bold;
 }
+nav a:hover { text-decoration: underline; }
 
-nav a:hover {
-  text-decoration: underline;
-}
-
-/* PRODUITS */
 .items {
   display: flex;
   justify-content: center;
   gap: 30px;
   padding: 40px;
-  flex-wrap: wrap;
 }
 
-/* CARTE PRODUIT */
 .item-card {
   background: #ffffff;
   color: #222;
@@ -56,6 +40,8 @@ nav a:hover {
   overflow: hidden;
   box-shadow: 0 15px 40px rgba(0,0,0,0.4);
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .item-card img {
@@ -68,22 +54,10 @@ nav a:hover {
   padding: 20px;
 }
 
-.item-card h2 {
-  margin-top: 0;
-}
+.item-card h2 { margin-top: 0; }
+.item-card p.description { font-size: 14px; color: #555; }
+.price { font-size: 20px; font-weight: bold; margin: 15px 0; }
 
-.price {
-  font-size: 20px;
-  font-weight: bold;
-  margin: 15px 0;
-}
-
-.viewers {
-  font-size: 14px;
-  opacity: 0.8;
-}
-
-/* BOUTONS */
 button {
   width: 100%;
   padding: 12px;
@@ -94,26 +68,9 @@ button {
   cursor: pointer;
 }
 
-.lock-btn {
-  background: #00c896;
-  color: white;
-}
+.lock-btn { background: #00c896; color: white; }
+.pay-btn { background: #ff9800; color: white; display: none; }
 
-.lock-btn:hover {
-  background: #00a77c;
-}
-
-.pay-btn {
-  background: #ff9800;
-  color: white;
-  display: none;
-}
-
-.pay-btn:hover {
-  background: #e68900;
-}
-
-/* ROTATION */
 .rotation-overlay {
   position: absolute;
   inset: 0;
@@ -124,17 +81,4 @@ button {
   font-size: 26px;
   color: #00ffcc;
   font-weight: bold;
-}
-
-/* PAGES SECONDAIRES */
-main {
-  background: transparent;
-}
-
-main h2 {
-  color: #00ffcc;
-}
-
-main p, main li {
-  color: white;
 }
