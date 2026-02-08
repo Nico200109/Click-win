@@ -1,155 +1,185 @@
 const objectPool = [
-  {name:"Smartphone", price:120, img:"./images/smartphone.png", paymentTime:8, description:"Smartphone moderne avec écran HD et caméra 12MP."},
-  {name:"Console", price:200, img:"./images/console.png", paymentTime:12, description:"Console dernière génération avec manette incluse."},
-  {name:"Séjour Paris", price:500, img:"./images/paris.png", paymentTime:15, description:"Voyage pour 2 personnes avec hôtel 3 nuits inclus."},
-  {name:"Casque Audio", price:80, img:"./images/casque.png", paymentTime:6, description:"Casque bluetooth avec réduction de bruit."},
-  {name:"Montre Connectée", price:60, img:"./images/montre.png", paymentTime:7, description:"Montre intelligente pour suivre vos activités."}
+  {
+    name:"Smartphone",
+    price:120,
+    img:"images/smartphone.png",
+    paymentTime:8,
+    desc:"Smartphone dernière génération avec écran haute définition."
+  },
+  {
+    name:"Tablette",
+    price:200,
+    img:"images/tablette.png",
+    paymentTime:12,
+    desc:"Tablette tactile idéale pour le travail et le divertissement."
+  },
+  {
+    name:"Console",
+    price:150,
+    img:"images/console.png",
+    paymentTime:10,
+    desc:"Console de jeux pour des heures de fun en solo ou entre amis."
+  },
+  {
+    name:"Casque audio",
+    price:80,
+    img:"images/casque.png",
+    paymentTime:6,
+    desc:"Casque audio immersif avec réduction de bruit."
+  },
+  {
+    name:"Montre connectée",
+    price:60,
+    img:"images/montre.png",
+    paymentTime:7,
+    desc:"Montre connectée pour suivre votre activité quotidienne."
+  },
+  {
+    name:"Voyage Paris",
+    price:500,
+    img:"images/paris.png",
+    paymentTime:15,
+    desc:"Séjour inoubliable à Paris pour deux personnes."
+  },
+  {
+    name:"Télévision",
+    price:350,
+    img:"images/television.png",
+    paymentTime:12,
+    desc:"Télévision écran large avec qualité d’image exceptionnelle."
+  },
+  {
+    name:"Enceinte HiFi",
+    price:120,
+    img:"images/enceinte.png",
+    paymentTime:8,
+    desc:"Enceinte HiFi pour un son puissant et clair."
+  },
+  {
+    name:"Réfrigérateur",
+    price:600,
+    img:"images/refrigerateur.png",
+    paymentTime:20,
+    desc:"Réfrigérateur spacieux et économe en énergie."
+  }
 ];
 
 const cards = document.querySelectorAll('.item-card');
-
-// Initialisation ou récupération du state
+const intervals = [];
 let auctionsState = JSON.parse(localStorage.getItem('auctionsState') || '[]');
+
 if (auctionsState.length !== cards.length) {
-  auctionsState = cards.map(() => {
-    const obj = objectPool[Math.floor(Math.random() * objectPool.length)];
-    return { object: obj, price: obj.price, locked: false, countdown: obj.paymentTime, lastUpdate: Date.now() };
-  });
+  auctionsState = cards.map(() => createItem());
   localStorage.setItem('auctionsState', JSON.stringify(auctionsState));
 }
 
-// Affichage d'un produit
-function loadObject(card, stateIndex) {
-  const object = auctionsState[stateIndex].object;
+function createItem(exclude = "") {
+  let obj;
+  do {
+    obj = objectPool[Math.floor(Math.random() * objectPool.length)];
+  } while (obj.name === exclude);
+
+  return {
+    object: obj,
+    price: obj.price,
+    locked: false,
+    countdown: obj.paymentTime,
+    watchers: Math.floor(Math.random() * 20) + 5
+  };
+}
+
+function loadObject(card, i) {
+  const o = auctionsState[i];
   card.innerHTML = `
     <div class="content">
-      <img src="${object.img}" alt="${object.name}">
-      <h2>${object.name}</h2>
-      <p class="description">${object.description}</p>
-      <p class="price">Prix actuel : <span class="price-value">${auctionsState[stateIndex].price.toFixed(2)}</span> €</p>
-      <button class="lock-btn">Bloquer ce prix</button>
-      <button class="pay-btn">Payer maintenant (${object.paymentTime}s)</button>
+      <img src="${o.object.img}">
+      <h2>${o.object.name}</h2>
+      <p class="desc">${o.object.desc}</p>
+      <p class="watchers">👀 ${o.watchers} personnes regardent</p>
+      <p class="price">Prix : <span class="price-value">${o.price.toFixed(2)}</span> €</p>
+      <button class="lock-btn">Bloquer le prix</button>
+      <button class="pay-btn"></button>
     </div>
     <div class="rotation-overlay"></div>
   `;
 }
 
-// Baisse de prix basée sur le temps réel
-function startAuction(card, stateIndex) {
-  const state = auctionsState[stateIndex];
-  const content = card.querySelector('.content');
+function startAuction(card, i) {
+  clearInterval(intervals[i]);
+
+  const state = auctionsState[i];
   const priceEl = card.querySelector('.price-value');
   const lockBtn = card.querySelector('.lock-btn');
   const payBtn = card.querySelector('.pay-btn');
-  const overlay = card.querySelector('.rotation-overlay');
 
-  let locked = state.locked;
-  let countdown = state.countdown;
-  let lastUpdate = state.lastUpdate;
-
-  lockBtn.style.display = locked ? 'none' : 'block';
-  payBtn.style.display = locked ? 'block' : 'none';
-  payBtn.textContent = `Payer maintenant (${countdown}s)`;
-
-  // Interval unique pour la baisse du prix
-  if (card.priceInterval) clearInterval(card.priceInterval);
-  card.priceInterval = setInterval(() => {
-    if (!locked) {
-      const now = Date.now();
-      const elapsed = (now - lastUpdate) / 1000; // secondes
-      lastUpdate = now;
-      let newPrice = Math.max(10, state.price - 0.5 * elapsed); // baisse 0.5€/s
-      state.price = newPrice;
-      priceEl.textContent = newPrice.toFixed(2);
-      state.lastUpdate = lastUpdate;
+  intervals[i] = setInterval(() => {
+    if (!state.locked && state.price > 10) {
+      state.price = Math.max(10, state.price - 0.6);
+      priceEl.textContent = state.price.toFixed(2);
       localStorage.setItem('auctionsState', JSON.stringify(auctionsState));
-
-      if (newPrice <= 10) {
-        clearInterval(card.priceInterval);
-        startRotation(card, stateIndex);
-      }
     }
-  }, 200);
+    if (state.price <= 10) rotate(card, i);
+  }, 300);
 
-  // Bloquer le prix
   lockBtn.onclick = () => {
-    locked = true;
     state.locked = true;
-    lockBtn.style.display = 'none';
-    payBtn.style.display = 'block';
-    countdown = state.countdown;
-    payBtn.textContent = `Payer maintenant (${countdown}s)`;
+    lockBtn.style.display = "none";
+    payBtn.style.display = "block";
 
-    if (card.payInterval) clearInterval(card.payInterval);
-    card.payInterval = setInterval(() => {
-      countdown--;
-      state.countdown = countdown;
-      payBtn.textContent = `Payer maintenant (${countdown}s)`;
-      localStorage.setItem('auctionsState', JSON.stringify(auctionsState));
+    let t = state.countdown;
+    payBtn.textContent = `Payer (${t}s)`;
 
-      if (countdown <= 0) {
-        clearInterval(card.payInterval);
-        locked = false;
-        state.locked = false;
-        payBtn.style.display = 'none';
-        lockBtn.style.display = 'block';
-        startRotation(card, stateIndex);
+    const timer = setInterval(() => {
+      t--;
+      payBtn.textContent = `Payer (${t}s)`;
+      if (t <= 0) {
+        clearInterval(timer);
+        rotate(card, i);
       }
     }, 1000);
 
     payBtn.onclick = () => {
-      clearInterval(card.payInterval);
+      clearInterval(timer);
       addWinner({name: state.object.name, price: state.price});
-      alert(`Paiement simulé ✔️\nObjet : ${state.object.name} à ${state.price.toFixed(2)} €`);
-      locked = false;
-      state.locked = false;
-      startRotation(card, stateIndex);
+      rotate(card, i);
     };
   };
 }
 
-// Rotation automatique
-function startRotation(card, stateIndex) {
-  const state = auctionsState[stateIndex];
-  const content = card.querySelector('.content');
+function rotate(card, i) {
+  clearInterval(intervals[i]);
+
   const overlay = card.querySelector('.rotation-overlay');
+  const content = card.querySelector('.content');
 
-  content.style.display = 'none';
-  overlay.style.display = 'flex';
-  overlay.textContent = 'Prochain produit : 5';
+  content.style.display = "none";
+  overlay.style.display = "flex";
 
-  let counter = 5;
-  const rotationInterval = setInterval(() => {
-    counter--;
-    overlay.textContent = `Prochain produit : ${counter}`;
-    if (counter <= 0) {
-      clearInterval(rotationInterval);
-      const newObject = objectPool[Math.floor(Math.random() * objectPool.length)];
-      state.object = newObject;
-      state.price = newObject.price;
-      state.locked = false;
-      state.countdown = newObject.paymentTime;
-      state.lastUpdate = Date.now();
+  let t = 5;
+  overlay.textContent = `Prochain objet : ${t}`;
+
+  const r = setInterval(() => {
+    t--;
+    overlay.textContent = `Prochain objet : ${t}`;
+    if (t <= 0) {
+      clearInterval(r);
+      const old = auctionsState[i].object.name;
+      auctionsState[i] = createItem(old);
       localStorage.setItem('auctionsState', JSON.stringify(auctionsState));
-
-      loadObject(card, stateIndex);
-      content.style.display = 'block';
-      overlay.style.display = 'none';
-      startAuction(card, stateIndex);
+      loadObject(card, i);
+      startAuction(card, i);
     }
   }, 1000);
 }
 
-// Historique des ventes
-function addWinner(winner) {
+function addWinner(w) {
   const winners = JSON.parse(localStorage.getItem('winners') || '[]');
-  winners.unshift({name: winner.name, price: winner.price});
+  winners.unshift(w);
   if (winners.length > 10) winners.pop();
   localStorage.setItem('winners', JSON.stringify(winners));
 }
 
-// Initialisation de toutes les cartes
-cards.forEach((card, index) => {
-  loadObject(card, index);
-  startAuction(card, index);
+cards.forEach((card, i) => {
+  loadObject(card, i);
+  startAuction(card, i);
 });
