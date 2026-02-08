@@ -1,13 +1,67 @@
 const objectPool = [
-  {name:"Smartphone", price:120, img:"images/smartphone.png", paymentTime:8},
-  {name:"Tablette", price:200, img:"images/tablette.png", paymentTime:12},
-  {name:"Console", price:150, img:"images/console.png", paymentTime:10},
-  {name:"Casque audio", price:80, img:"images/casque.png", paymentTime:6},
-  {name:"Montre connectée", price:60, img:"images/montre.png", paymentTime:7},
-  {name:"Voyage Paris", price:500, img:"images/paris.png", paymentTime:15},
-  {name:"Télévision", price:350, img:"images/television.png", paymentTime:12},
-  {name:"Enceinte HiFi", price:120, img:"images/enceinte.png", paymentTime:8},
-  {name:"Réfrigérateur", price:600, img:"images/refrigerateur.png", paymentTime:20}
+  {
+    name:"Smartphone",
+    price:120,
+    img:"images/smartphone.png",
+    paymentTime:8,
+    desc:"Smartphone dernière génération avec écran haute définition."
+  },
+  {
+    name:"Tablette",
+    price:200,
+    img:"images/tablette.png",
+    paymentTime:12,
+    desc:"Tablette tactile idéale pour le travail et le divertissement."
+  },
+  {
+    name:"Console",
+    price:150,
+    img:"images/console.png",
+    paymentTime:10,
+    desc:"Console de jeux pour des heures de fun en solo ou entre amis."
+  },
+  {
+    name:"Casque audio",
+    price:80,
+    img:"images/casque.png",
+    paymentTime:6,
+    desc:"Casque audio immersif avec réduction de bruit."
+  },
+  {
+    name:"Montre connectée",
+    price:60,
+    img:"images/montre.png",
+    paymentTime:7,
+    desc:"Montre connectée pour suivre votre activité quotidienne."
+  },
+  {
+    name:"Voyage Paris",
+    price:500,
+    img:"images/paris.png",
+    paymentTime:15,
+    desc:"Séjour inoubliable à Paris pour deux personnes."
+  },
+  {
+    name:"Télévision",
+    price:350,
+    img:"images/television.png",
+    paymentTime:12,
+    desc:"Télévision écran large avec qualité d’image exceptionnelle."
+  },
+  {
+    name:"Enceinte HiFi",
+    price:120,
+    img:"images/enceinte.png",
+    paymentTime:8,
+    desc:"Enceinte HiFi pour un son puissant et clair."
+  },
+  {
+    name:"Réfrigérateur",
+    price:600,
+    img:"images/refrigerateur.png",
+    paymentTime:20,
+    desc:"Réfrigérateur spacieux et économe en énergie."
+  }
 ];
 
 const cards = document.querySelectorAll('.item-card');
@@ -40,7 +94,7 @@ function loadObject(card, i) {
     <div class="content">
       <img src="${o.object.img}">
       <h2>${o.object.name}</h2>
-      <p class="desc">Offre à prix dégressif en temps réel</p>
+      <p class="desc">${o.object.desc}</p>
       <p class="watchers">👀 ${o.watchers} personnes regardent</p>
       <p class="price">Prix : <span class="price-value">${o.price.toFixed(2)}</span> €</p>
       <button class="lock-btn">Bloquer le prix</button>
@@ -109,8 +163,8 @@ function rotate(card, i) {
     overlay.textContent = `Prochain objet : ${t}`;
     if (t <= 0) {
       clearInterval(r);
-      const oldName = auctionsState[i].object.name;
-      auctionsState[i] = createItem(oldName);
+      const old = auctionsState[i].object.name;
+      auctionsState[i] = createItem(old);
       localStorage.setItem('auctionsState', JSON.stringify(auctionsState));
       loadObject(card, i);
       startAuction(card, i);
