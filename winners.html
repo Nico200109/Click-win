@@ -7,22 +7,36 @@
 </head>
 <body>
 
-<header class="hero">
+<header>
   <h1>Historique des ventes</h1>
-  <p class="subtitle">
-    Les dernières offres finalisées sur Click&Win
-  </p>
+  <p>Derniers produits achetés</p>
   <nav>
-    <a href="index.html">← Retour aux offres</a>
+    <a href="index.html">← Retour à la boutique</a>
   </nav>
 </header>
 
-<main class="content-page">
-  <div id="winners-list" class="card-list">
-    <!-- Rempli automatiquement par winners.js -->
-  </div>
+<main style="padding:30px; max-width:600px; margin:auto;">
+  <ul id="winner-list" style="list-style:none; padding:0;"></ul>
 </main>
 
-<script src="winners.js"></script>
+<script>
+const list = document.getElementById('winner-list');
+const winners = JSON.parse(localStorage.getItem('winners') || '[]');
+
+if(winners.length === 0){
+  list.innerHTML = "<li>Aucun produit acheté pour le moment.</li>";
+} else {
+  winners.forEach(w => {
+    const li = document.createElement('li');
+    li.textContent = `${w.name} – ${w.price.toFixed(2)} €`;
+    li.style.marginBottom = "10px";
+    li.style.padding = "10px";
+    li.style.background = "#222";
+    li.style.borderRadius = "6px";
+    list.appendChild(li);
+  });
+}
+</script>
+
 </body>
 </html>
