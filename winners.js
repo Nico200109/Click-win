@@ -1,19 +1,10 @@
-const list = document.getElementById("winnersList");
-const winners = JSON.parse(localStorage.getItem("winners") || "[]");
+const list = document.getElementById("list");
+const winners = JSON.parse(localStorage.getItem("winners")) || [];
 
-list.innerHTML = "";
-
-if (winners.length === 0) {
-  list.innerHTML = "<p>Aucun gagnant pour le moment</p>";
+if (!winners.length) {
+  list.innerHTML = "<p>Aucune vente pour le moment.</p>";
+} else {
+  list.innerHTML = winners
+    .map(w => `<p>✔ ${w.name} — ${w.price.toFixed(2)} €</p>`)
+    .join("");
 }
-
-winners.forEach(w => {
-  const div = document.createElement("div");
-  div.className = "item-card";
-  div.innerHTML = `
-    <h3>${w.user}</h3>
-    <p>${w.object}</p>
-    <strong>${w.price} €</strong>
-  `;
-  list.appendChild(div);
-});
