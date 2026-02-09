@@ -7,19 +7,25 @@ body {
 
 .hero {
   text-align: center;
-  padding: 22px;
+  padding: 25px;
   background: linear-gradient(135deg, #020617, #0f172a);
   border-bottom: 1px solid #1e293b;
 }
 
 .hero h1 {
   margin: 0;
-  font-size: 2.5em;
+  font-size: 2.8em;
   color: #38bdf8;
 }
 
 .subtitle {
-  margin: 6px 0;
+  margin: 10px 0;
+  font-size: 1.2em;
+}
+
+.info {
+  font-size: 0.9em;
+  opacity: 0.8;
 }
 
 nav a {
@@ -32,57 +38,54 @@ nav a {
 .items {
   display: flex;
   justify-content: center;
-  gap: 22px;
-  padding: 30px;
+  gap: 30px;
+  padding: 40px;
 }
 
-/* ⬇️ CARTES PLUS PETITES */
 .item-card {
   background: #020617;
-  width: 250px;
-  border-radius: 12px;
-  padding: 12px;
-  box-shadow: 0 0 16px rgba(56,189,248,0.15);
+  width: 280px;
+  border-radius: 14px;
+  padding: 15px;
+  box-shadow: 0 0 25px rgba(56,189,248,0.15);
   position: relative;
 }
 
 .item-card img {
   width: 100%;
-  height: 140px;
-  object-fit: cover;
-  border-radius: 8px;
+  border-radius: 10px;
 }
 
 .item-card h2 {
-  margin: 6px 0 2px;
-  font-size: 1.05em;
+  margin: 10px 0 5px;
+  font-size: 1.1em;
 }
 
-.desc {
-  font-size: 0.82em;
+.description {
+  font-size: 0.9em;
   opacity: 0.85;
-  margin: 2px 0;
+  margin-bottom: 8px;
 }
 
-.watchers {
-  font-size: 0.75em;
-  color: #38bdf8;
-  margin: 2px 0;
+.viewers {
+  font-size: 0.8em;
+  opacity: 0.6;
+  margin-bottom: 10px;
 }
 
 .price {
-  margin: 6px 0;
-  font-size: 1em;
+  font-size: 1.2em;
+  margin-bottom: 10px;
 }
 
 .lock-btn,
 .pay-btn {
   width: 100%;
-  padding: 9px;
+  padding: 10px;
   border: none;
-  border-radius: 7px;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 0.95em;
+  font-size: 1em;
 }
 
 .lock-btn {
@@ -102,8 +105,8 @@ nav a {
   inset: 0;
   background: rgba(2,6,23,0.9);
   color: #38bdf8;
-  font-size: 1.3em;
+  font-size: 1.4em;
   justify-content: center;
   align-items: center;
-  border-radius: 12px;
+  border-radius: 14px;
 }
