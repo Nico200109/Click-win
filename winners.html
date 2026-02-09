@@ -7,34 +7,27 @@
 </head>
 <body>
 
-<header>
+<header class="hero">
   <h1>Historique des ventes</h1>
-  <p>Derniers produits achetés</p>
   <nav>
-    <a href="index.html">← Retour à la boutique</a>
+    <a href="index.html">Accueil</a>
   </nav>
 </header>
 
-<main style="padding:30px; max-width:600px; margin:auto;">
-  <ul id="winner-list" style="list-style:none; padding:0;"></ul>
+<main class="items">
+  <div class="item-card" id="sales"></div>
 </main>
 
 <script>
-const list = document.getElementById('winner-list');
-const winners = JSON.parse(localStorage.getItem('winners') || '[]');
+const sales = JSON.parse(localStorage.getItem('sales') || '[]');
+const container = document.getElementById('sales');
 
-if(winners.length === 0){
-  list.innerHTML = "<li>Aucun produit acheté pour le moment.</li>";
+if (sales.length === 0) {
+  container.innerHTML = "<p>Aucune vente enregistrée pour le moment.</p>";
 } else {
-  winners.forEach(w => {
-    const li = document.createElement('li');
-    li.textContent = `${w.name} – ${w.price.toFixed(2)} €`;
-    li.style.marginBottom = "10px";
-    li.style.padding = "10px";
-    li.style.background = "#222";
-    li.style.borderRadius = "6px";
-    list.appendChild(li);
-  });
+  container.innerHTML = sales.map(s =>
+    `<p>${s.name} — <strong>${s.price.toFixed(2)} €</strong></p>`
+  ).join("");
 }
 </script>
 
